@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card-list-table">
+      <div class="card-list-heading">
+      <h1>
+        <span class="logo-image">
+          <%= image_tag(set_logo @card_set.code, 'r', 32) %>
+        </span>
+        <%= @card_set.name %>
+      </h1>
+      </div>
+
+      <%= render partial:'cards/card_set_table', locals:{cards:@cards} %>
+
+    <div class="panel-body">
+		<%= will_paginate @cards, :class => 'simple_pager pull-right', :previous_label => '&laquo; previous', :next_label => 'next &raquo;' %>
+  </div>
+</div>
+
+  </div><!-- .col-md-9 -->
+</div><!-- .col-row -->

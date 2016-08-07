@@ -1,0 +1,31 @@
+<%= form_for([@cart, order_card], remote:true) do |f| %>
+<li id="card-<%= order_card.card.id %>" class="list-group-item order_card">
+  <span class="width-25 align-left longtext">
+    <%= link_to "<span class='fa fa-search-plus'></span> #{order_card.card.name}".html_safe, '#', title:('<img src="' + card_image(order_card.card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+  </span>
+  <span class="width-15 padding-0-10 longtext">
+    <%= mana_icons(order_card.card) %>
+  </span>
+  <span class="width-15 padding-0-10">
+    <%= order_card.card.rarity %>
+  </span>
+  <span class="width-10 padding-0-10">
+    <%= "$#{order_card.current_price_in_dollars}" %>
+  </span>
+  <span class="width-10">
+    <%= f.number_field :quantity, class:"form-control" %>
+    <%= hidden_field_tag :origin, 'cart' %>
+  </span>
+  <span class="width-10 padding-0-10">
+    <%= "$#{order_card.card_total_in_dollars}" %>
+  </span>
+  <span class="width-10 align-right">
+    <button type="submit" class="icon-only-btn btn btn-sm btn-success line-item-submit">
+      <span class='fa fa-check'></span>
+    </button>
+    <button class="icon-only-btn btn btn-sm btn-default line-item-cancel" data-card-id="<%= order_card.card_id %>">
+      <span class='fa fa-times-circle'></span>
+    </button>
+  </span>
+</li>
+<% end %>

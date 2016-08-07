@@ -1,0 +1,127 @@
+<%# BEGIN FIRST ROW %>
+<div id="callout-row" data-speed="5">
+  <div id="home-mask" class="hero">
+    <div class="row">
+      <div class="col-md-8 text-center">
+        <h1>
+          Rent any Standard<br>
+          or Modern Deck<br>
+          BFZ Available Oct 2nd!<br>
+        </h1>
+
+
+        <div class="row">
+          <div class="col-md-12 <%= 'hide' if @top_standard_decks.blank? %>">
+            <div class="top-standard">
+              <h4 class="top_standard_decks_title">Top Standard & Modern Decks</h4>
+              <div class="top-standard-decks-list">
+                <% @top_standard_decks.each_slice(3) do |slice| %>
+                <div class="row">
+                  <% slice.each do |top_standard_deck| %>
+                  <div class="col-md-4">
+                    <%= link_to "<span class='fa fa-play'></span>#{top_standard_deck.name}".html_safe, template_decks_path(anchor:"deck-#{ top_standard_deck.id }"), class:'top_standard_link text-primary' %>
+                  </div>
+                  <% end %>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%# END FIRST ROW %>
+
+
+<%# BEGIN HOW IT WORKS %>
+
+<div class="row about-row full-width-row text-center">
+  <div class="col-md-10 col-md-offset-1 pitch">
+    <h2>How Does It Work?</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="icon-box">
+          <span class="fa fa-hand-o-up"></span>
+          <h3>Select</h3>
+          <p>Choose the cards for your deck and receive them in time for your event. Rent for a weekend or up to 30 days!</p>
+        </div><!-- .icon-box -->
+      </div><!-- .col-md-4 -->
+
+      <div class="col-md-4">
+        <div class="icon-box">
+          <span class="fa fa-play-circle-o"></span>
+          <h3>Play</h3>
+          <p>Have fun playing with the deck at a tournament or in your own play group.</p>
+        </div><!-- .icon-box -->
+      </div><!-- .col-md-4 -->
+
+      <div class="col-md-4">
+        <div class="icon-box">
+          <span class="fa fa-reply"></span>
+          <h3>Return</h3>
+          <p>Send the cards back in the same box with the prepaid postage label.</p>
+        </div><!-- .icon-box -->
+      </div><!-- .col-md-4 -->
+
+    </div>
+  </div>
+</div>
+
+<%# END HOW IT WORKS %>
+
+
+<div class="row top-standard-decks-row full-width-row text-center">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="pitch">
+      <h2>Why Rent?</h2>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="icon-box">
+            <h3>Save money</h3>
+            <p>Avoid paying thousands of dollars to keep up with the latest Standard metagame and never lose money during the Standard rotation.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="icon-box">
+            <h3>Convenient</h3>
+            <p>Never worry about buying or trading cards to get what you need for a deck. Have fun with formats you don't normally play. Get the deck you want, when you need it!</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="icon-box">
+            <h3>Variety</h3>
+            <p>We give you the ability to play any deck at any time. Play the hottest deck or come up with your own brew.</p>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<div id="about-us" class="pitch-row text-center pitch">
+<div  class="pitch-mask row full-width-row">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>About Us</h2>
+
+    <p>Our mission at SpareDeck is to make Magic: the Gathering accessible to more players. We do this by making it possible to quickly, easily and affordably rent any deck or cards you need for an upcoming event through the mail in just a few days.</p>
+
+    <p>We are a brand new startup that is looking to revolutionize how players get their Magic: the Gathering cards. It is our mission to provide a seamless service so that you can receive the cards you need, when you need them. If you have any questions or comments about our services, please let us know. We strive to provide the best possible experience for the MTG community!</p>
+
+  </div>
+  </div>
+</div>
+
+<%# END WHY RENT ROW %>
+
+

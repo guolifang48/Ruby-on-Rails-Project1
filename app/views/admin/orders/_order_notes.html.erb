@@ -1,0 +1,32 @@
+<div id="order-notes" class="row order-section-row">
+  <div class="col-md-12">
+    <div class="order-section">
+      <h3>Order notes</h3>
+
+      <div class="order-notes">
+      <% order.order_notes.each do |note| %>
+      <div class="row order-note-row">
+        <div class="col-md-12">
+          <% if note.subject.present? %>
+            <%= "<h4>#{note.subject}<span class='created-at'><span class='fa fa-clock-o'></span>#{format_date note.created_at, {time:true}}</span></h4>".html_safe %>
+          <% else %>
+            <%= "<h4 class='h4-icon-only'><span class='created-at'><span class='fa fa-clock-o'></span>#{format_date note.created_at, {time:true}}</span></h4>".html_safe %>
+          <% end %>
+          <%= simple_format note.body %>
+        </div>
+      </div>
+      <% end %>
+      </div>
+
+      <% if order.order_notes.count == 0 %>
+      <p class="text-info text-bold">No notes have been added to this order</p>
+      <br>
+      <% end %>
+
+      <%= link_to '<span class="fa fa-edit"></span> log note'.html_safe, new_admin_order_order_note_path(order), id:'new-order-note-link', class:'btn btn-outline btn-default btn-wd', remote:true %>
+
+      <div id="order-note-form-target"></div>
+
+    </div>
+  </div>
+</div>

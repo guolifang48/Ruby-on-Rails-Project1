@@ -1,0 +1,27 @@
+<div class="pull-right"><%= link_to '<span class="fa fa-reply"></span> back to cart and scheduling'.html_safe, cart_url, class:'btn btn-primary btn-outline' %></div>
+<h1>Shipping and Payment Information</h1>
+
+<div class="row">
+  <div class="col-md-6">
+      <% if current_user.guest %>
+      <div class="well">
+        <%= render 'orders/payment_login_forms' %>
+      </div><!-- .well -->
+      <% else %>
+      <div class="alert alert-info alert-well">
+        <div id="address_error" class="alert alert-danger hide">
+        </div>
+        <%= render 'orders/shipping_cc_forms' %>
+      </div><!-- .alert.alert-info -->
+      <% end %>
+  </div><!-- .col-md-6 -->
+
+  <div class="col-md-6">
+    <div class="well">
+    <h3>Order summary</h3>
+    <%= render partial:'orders/order_summary', locals:{order:@cart, order_cards_hash:@order_cards_hash} %>
+    </div><!-- .well -->
+  </div><!-- .col-md-6 -->
+</div><!-- .row -->
+
+

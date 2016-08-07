@@ -1,0 +1,10 @@
+<ul id="cart-table" class="list-group siteList" data-cards-subtotal="<%= @cart.subtotal %>">
+<% order_cards_hash.each do |card_type_index, order_cards| %>
+  <li class="list-group-item card-type">
+    <%= card_type_array[card_type_index].pluralize %>
+  </li>
+  <% order_cards.each do |order_card| %>
+    <%= render partial:'order_cards/cart_line_item', locals:{order_card:order_card} %>
+  <% end %>
+<% end %>
+</ul>

@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-12">
+
+      <div class="card-list-table">
+        <div class="card-list-heading align-left">
+          <div class="pull-right">
+            <%= link_to "<span class='fa fa-cog'></span> edit".html_safe, edit_admin_template_deck_path(@template_deck), class:'btn btn-large btn-primary', remote:true %>
+            <%= link_to "<span class='fa fa-times-circle'></span> delete".html_safe, admin_template_deck_path(@template_deck), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-large btn-danger' %>
+          </div>
+          <h1>
+            <%= @template_deck.name %>
+          </h1>
+          <% if @template_deck.description.present? %>
+          <div class="row description-row">
+            <div class="col-md-9">
+              <h3>Description</h3>
+              <%= simple_format @template_deck.description %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <%= render partial:'admin/template_decks/template_deck_table', locals:{ template_deck_card_hash:@template_deck_card_hash } %>
+
+        <%= render partial: 'admin/template_decks/sideboard_table', locals:{sideboard_template_deck_cards:@template_deck.template_deck_cards.sideboard} %>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    <h3>Add new card</h3>
+    <% @template_deck_card = @template_deck.template_deck_cards.build %>
+    <%= render partial: 'admin/template_deck_cards/form' %>
+  </div>
+</div>
+<br>
+
+<script>
+
+    $('.template-deck-card-cancel a.btn').click(function(e) {
+        $('#card_name, #template_deck_card_quantity').val('');
+        $('#template_deck_card_sideboard').prop( "checked", false );
+        e.preventDefault();
+    });
+
+    $('#card_name').autocomplete({
+        source: $('#card_name').data('autocomplete-source'),
+        dataType: "json",
+        minLength: 2,
+        focus: function(event, ui) {
+            event.preventDefault();
+            $('#card_name').val(ui.item.label);
+            $('#template_deck_card_card_id').val(ui.item.value);
+        },
+        select: function(event, ui) {
+            event.preventDefault();
+            $('#card_name').val(ui.item.label);
+            $('#template_deck_card_card_id').val(ui.item.value);
+        },
+        _renderItem: function( ul, item ) {
+            return $( "<li>" )
+                    .attr( "data-value", item.value )
+                    .append("<img src='" + item.card_image_url + "' />")
+                    .appendTo( ul );
+        }
+    });
+
+    $.ui.autocomplete.prototype._renderItem = function(ul, item) {
+        return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append(
+                '<a href="' + item.search_cards_url + '"><div class="ui-card-price pull-right badge badge-success">' + item.card_price + '</div>'
+                +  '<img src="' + item.card_image_url + '" class="pull-left ui-card-image" />'
+                +  '<div class="ui-card-title">' + item.label + '</div>'
+                +  '<div class="ui-card-type">' + item.card_color_and_type + ' | ' + item.card_rarity + '</div>'
+                +  '<div class="ui-card-description">' + item.card_text + '</div>'
+                + '<div class="clear"></div></a>'
+        )
+                .appendTo( ul );
+    };
+</script>

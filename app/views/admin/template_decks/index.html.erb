@@ -1,0 +1,27 @@
+<%= link_to "<span class='fa fa-plus-circle'></span> create template deck".html_safe, new_admin_template_deck_path, remote:true, class:'btn btn-outline btn-default btn-wd pull-right' %>
+
+<h1>Template Decks</h1>
+
+<% if @template_decks.blank? %>
+  <p>You do not have any template decks created. Click "create template deck" above to begin a new one.</p>
+<% else %>
+<div class="card-list-table">
+  <table class="table card-list-table">
+    <thead>
+        <td>Name</td>
+        <td>Description</td>
+    </thead>
+    <tbody>
+    <% @template_decks.each do |template_deck| %>
+      <tr class="template_deck-<%= template_deck.id %>">
+        <td><%= link_to template_deck.name, admin_template_deck_path(template_deck) %></td>
+        <td><%= simple_format template_deck.description %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="panel-body">
+		<%= will_paginate @template_decks, :class => 'simple_pager pull-right', :previous_label => '&laquo; previous', :next_label => 'next &raquo;' %>
+  </div>
+</div>
+<% end %>

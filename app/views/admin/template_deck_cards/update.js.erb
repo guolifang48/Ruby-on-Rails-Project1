@@ -1,0 +1,6 @@
+$("table#template-deck-table").replaceWith("<%= escape_javascript(render partial:'admin/template_decks/template_deck_table', locals:{template_deck_card_hash:@template_deck_card_hash}) %>");
+
+$('#modal-form').modal('hide');
+$('#modal-form').on('hidden.bs.modal', function () {
+    $('#modal-form').remove();
+});

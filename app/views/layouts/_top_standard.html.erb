@@ -1,0 +1,22 @@
+<div class="panel panel-default callout-decks-container">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h4>Top standard deck lists</h4></div>
+  <!-- List group -->
+  <ul class="list-group siteList">
+
+    <% top_standard_decks.each do |deck| %>
+    <li class="list-group-item callout-deck">
+      <span class="width-75">
+        <%= deck.name %>
+        <span class="badge">
+          $<%= deck.price %>
+        </span>
+      </span>
+      <span class="width-20">
+        <%= link_to 'rent', deck, class:'btn btn-xs btn-success' %>
+      </span>
+    </li>
+    <% end %>
+
+  </ul>
+</div>

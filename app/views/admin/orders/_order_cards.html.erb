@@ -1,0 +1,22 @@
+<div class="row order-section-row">
+  <div class="col-md-12">
+
+    <div class="order-section">
+      <h3>Deck</h3>
+
+      <ul id="order-card-list" class="list-group siteList bordered">
+      <% @order_cards_hash.each do |card_type_index, order_cards| %>
+        <% order_cards.each do |order_card| %>
+        <li>
+          <span class="card-pull-check padding-0-10"><input type="checkbox"></input></span>
+          <span class="card-quantity padding-0-10 text-muted text-bold"><%= order_card.quantity %>x</span>
+          <span class="card-name padding-0-10 text-primary text-bold"><%= order_card.card.name %></span>
+          <span class="card-set padding-0-10 text-muted">(<%= order_card.card.card_set.code %>)</span>
+        </li>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+
+  </div>
+</div>

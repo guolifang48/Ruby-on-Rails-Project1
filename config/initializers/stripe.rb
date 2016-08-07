@@ -1,0 +1,7 @@
+#STRIPE TEST KEYS
+Stripe.api_key = ENV['STRIPE_SECRET']
+STRIPE_PUBLISHABLE_KEY = ENV['STRIPE_PUBLIC']
+
+#STRIPE LIVE KEYS
+#Stripe.api_key = "xxxxxxxxxx"
+#STRIPE_PUBLISHABLE_KEY = "xxxxxxxxx"

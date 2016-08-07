@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: sparedeck
+  host: localhost
+
+production:
+  adapter: postgresql
+  database: sparedeck
+  host: localhost

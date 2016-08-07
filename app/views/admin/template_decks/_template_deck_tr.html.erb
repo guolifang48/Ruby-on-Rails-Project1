@@ -1,0 +1,21 @@
+<tr class="card-info">
+  <td class="card-name col-md-3">
+    <%= link_to template_deck_card.card.name, '#', title:('<img src="' + card_image(template_deck_card.card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+  </td>
+  <td class="col-md-1">
+    <%= template_deck_card.quantity %>
+  </td>
+  <td class="card-type col-md-3">
+    <%= template_deck_card.card.card_type %>
+  </td>
+  <td class="col-md-1">
+    <%= template_deck_card.card.rarity %>
+  </td>
+  <td class="col-md-1">
+    <%= "$#{template_deck_card.card.get_price}" %>
+  </td>
+  <td class="col-md-2 td-links">
+    <%= link_to '<span class="fa fa-cog"></span> edit'.html_safe, edit_admin_template_deck_template_deck_card_path(@template_deck, template_deck_card), remote:true %>
+    <%= link_to "<span class='fa fa-times-circle'></span> remove".html_safe, admin_template_deck_template_deck_card_path(@template_deck, template_deck_card), method: :delete, remote:true, class:'text-danger text-bold' %>
+  </td>
+</tr>

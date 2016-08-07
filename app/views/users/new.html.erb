@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="intro">
+
+      <h1>Create an account</h1>
+
+      <%= form_for(@user, html:{class:'form'}) do |f| %>
+      <%= @errors.html_safe if @errors.present? %>
+      <br>
+      <%= hidden_field_tag :token, @invitation.token %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :first_name, class:'control-label' %>
+            <%= f.text_field :first_name, class:'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :last_name, class:'control-label' %>
+            <%= f.text_field :last_name, class:'form-control' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :email, class:'control-label' %>
+            <%= f.text_field :email, class:'form-control', value:(@invitation.recipient_email if @invitation.present?) %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :time_zone, class:'control-label' %>
+            <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {default: "Eastern Time (US & Canada)"}, {class:'form-control'} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :password, class:'control-label' %>
+            <%= f.password_field :password, class:'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label :password_confirmation, class:'control-label' %>
+            <%= f.password_field :password_confirmation, class:'form-control' %>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <br>
+            <%= f.check_box :terms %>
+            <%= f.label :terms, "I have read and agree to the #{link_to 'terms of service', terms_url, target:'_blank'}".html_safe, class:'control-label' %>
+          </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+
+      <br>
+      <div class="pull-right"><%= f.submit "Create my account", class: "btn btn-lg btn-primary" %></div>
+      <div style="clear:both;"></div>
+      <br><br>
+      <% end %>
+      <br><br>
+      <br><br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+$("div#cart-table").replaceWith("<%= escape_javascript(render partial:'orders/cart_table', locals:{order_cards_hash:@order_cards_hash}) %>");

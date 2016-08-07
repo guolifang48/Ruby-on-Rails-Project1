@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Manage default prices</h1>
+
+    <p>By default, cards on SpareDeck are priced by rarity. Use the form below to update current prices on the site.</p>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Rarity</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="site_setting-<%= @common.id %>">
+              <td>Common</td>
+              <td>$<span class="rarity-price"><%= @common.price_in_dollars %></span></td>
+              <td><%= link_to "<span class='fa fa-cog'></span> edit price".html_safe, edit_admin_site_setting_path(@common), remote:true %></td>
+            </tr>
+            <tr id="site_setting-<%= @uncommon.id %>">
+              <td>Uncommon</td>
+              <td>$<span class="rarity-price"><%= @uncommon.price_in_dollars %></span></td>
+              <td><%= link_to "<span class='fa fa-cog'></span> edit price".html_safe, edit_admin_site_setting_path(@uncommon), remote:true %></td>
+            </tr>
+            <tr id="site_setting-<%= @rare.id %>">
+              <td>Rare</td>
+              <td>$<span class="rarity-price"><%= @rare.price_in_dollars %></span></td>
+              <td><%= link_to "<span class='fa fa-cog'></span> edit price".html_safe, edit_admin_site_setting_path(@rare), remote:true %></td>
+            </tr>
+            <tr id="site_setting-<%= @mythic_rare.id %>">
+              <td>Mythic Rare</td>
+              <td>$<span class="rarity-price"><%= @mythic_rare.price_in_dollars %></span></td>
+              <td><%= link_to "<span class='fa fa-cog'></span> edit price".html_safe, edit_admin_site_setting_path(@mythic_rare), remote:true %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

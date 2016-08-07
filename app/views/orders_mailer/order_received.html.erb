@@ -1,0 +1,31 @@
+<tr>
+  <td>
+    <p class="dear-p">
+      Dear <%= @order.user.first_name %>,
+    </p>
+    <p>
+      Your order has been received and will now be sent to our verification department!<br>
+      You may receive an e-mail from us if we require additional information for verification purposes.
+    </p>
+
+    <p>
+      The following is a summary of your order.
+    </p>
+
+    <p>
+      <b>We look forward to providing the cards you want, when you need them again in the future!</b>
+    </p>
+
+    <p>
+      Sincerely,<br>
+      <b>SpareDeck</b>
+    </p>
+
+    <%= render partial:'orders_mailer/mailer_order_info', locals:{ order:@order, order_controls:true } %>
+
+    <%= render partial:'layouts/email_order_summary', locals:{order:@order, order_cards_hash:@order_cards_hash} %>
+  </td>
+</tr>
+
+
+

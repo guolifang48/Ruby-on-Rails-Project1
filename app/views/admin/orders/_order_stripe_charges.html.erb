@@ -1,0 +1,46 @@
+<div id="order-stripe-charges" class="row order-section-row">
+  <div class="col-md-12">
+    <div class="order-section">
+      <h3>Stripe charges</h3>
+
+      <ul id="stripe-charges" class="list-group siteList bordered">
+      <% order.stripe_charges.each do |stripe_charge| %>
+        <li>
+          <span class="width-20 charge-date text-muted">
+            <%= format_date stripe_charge.charge_date, {time:false} %>
+          </span>
+          <span class="width-15 charge-date text-bold text-success">
+            $<%= stripe_charge.amount_in_dollars %>
+          </span>
+          <span class="width-45 charge-date text-muted longtext padding-0-10">
+            <%= stripe_charge.card_charged %> | <%= stripe_charge.charge_type %>
+          </span>
+          <span class="width-15 refund-btn">
+            <% unless stripe_charge.total_refunded? %>
+            <%= link_to 'refund'.html_safe, refund_admin_stripe_charge_path(stripe_charge), class:'btn-sm btn-primary btn-outline btn', remote:true, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </span>
+          <% if stripe_charge.stripe_refunds.count > 0 %>
+          <% stripe_charge.stripe_refunds.each do |stripe_refund| %>
+          <br>
+          <span class="width-60 charge-date text-primary">
+            charge refunded, date: <%= format_date stripe_refund.created_at %>, amount: $<%= stripe_refund.amount_in_dollars %>
+          </span>
+          <% end %>
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+
+      <% if order.stripe_charges.count == 0 %>
+      <p class="text-bold text-info">This user has not been charged yet.</p>
+      <br>
+      <% end %>
+
+        <%= link_to '<span class="fa fa-credit-card"></span> Create New Charge'.html_safe, new_admin_order_stripe_charge_path(order), id:'new-stripe-charge-link', class:'btn btn-sm btn-success btn-outline btn-wd', remote:true %>
+
+        <div id="charge-card-form-target"></div>
+    </div><!-- .order-section -->
+
+  </div>
+</div>

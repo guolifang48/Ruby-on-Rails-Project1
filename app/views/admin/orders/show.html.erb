@@ -1,0 +1,34 @@
+<div class="row order-section-row">
+
+  <div class="col-md-6">
+    <% if @order.was_canceled? %>
+    <div id="canceled" class="row order-section-row">
+      <div class="col-md-12">
+        <div class="alert alert-danger">
+          <p>
+            <b><%= @order.canceled %> canceled order</b>
+            <% if @order.canceled_by_admin? %>
+              <br>
+              Please note users are not automatically notified of cancellations. If it seems appropriate, email the user and leave a note on this order for your records.
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+    <%= render partial:'admin/orders/order_info', locals:{ order:@order, order_controls:true } %>
+    <%= render 'admin/orders/order_cards' %>
+  </div><!-- .col-md-6 -->
+
+  <div class="col-md-6">
+    <%= render partial:'admin/orders/order_controls', locals:{order:@order} %>
+    <%= render partial:'admin/orders/order_notifications', locals:{order:@order} %>
+    <%= render partial:'admin/orders/order_fees', locals:{order:@order} %>
+    <%= render partial:'admin/orders/order_stripe_charges', locals:{order:@order} %>
+    <%= render partial:'admin/orders/order_notes', locals:{ order:@order} %>
+  </div><!-- .col-md-6 -->
+
+</div><!-- .row -->
+
+

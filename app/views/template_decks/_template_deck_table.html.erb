@@ -1,0 +1,32 @@
+<table id="template-deck-table" class="table card-list-table <%= 'hide' if template_deck_cards.blank? %>">
+  <thead>
+      <th>Card</th>
+      <th>Qty</th>
+      <th>Type</th>
+      <th>Rarity</th>
+      <th>Price</th>
+  </thead>
+  <tbody>
+    <% template_deck_cards.each do |template_deck_card| %>
+      <tr class="card-info">
+        <td class="card-name col-md-3">
+          <%= image_tag((set_logo template_deck_card.card.card_set.code, 'r', 32), class:'search-card-set-logo') %>
+          <%= link_to template_deck_card.card.name, '#', title:('<img src="' + card_image(template_deck_card.card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+        </td>
+        <td class="col-md-1">
+          <%= template_deck_card.quantity %>
+        </td>
+        <td class="card-type col-md-3">
+          <%= mana_icons(template_deck_card.card) %>
+          <%= template_deck_card.card.card_type %>
+        </td>
+        <td class="col-md-1">
+          <%= template_deck_card.card.rarity %>
+        </td>
+        <td class="col-md-1">
+          <%= "$#{template_deck_card.card.get_price}" %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,35 @@
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Order no.</th>
+      <th>Date needed</th>
+      <th>Days needed</th>
+      <th>Shipping method</th>
+      <th>Date returning</th>
+      <th>Total</th>
+      <th>Card charged?</th>
+      <th>Shipped?</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <td><%= format_date order.created_at, {time:true} %></td>
+      <td><%= link_to order.id, admin_order_path(order) %></td>
+
+      <td><%= format_date order.date_needed %></td>
+      <td><%= order.days_needed %></td>
+      <td><%= order.shipping_method %></td>
+      <td><%= format_date order.date_due %></td>
+
+      <td>$<%= order.order_total_in_dollars %></td>
+      <td class='text-center'><%= checkbox_icon_boolean order.paid %></td>
+      <td class='text-center'><%= checkbox_icon_boolean order.shipped %></td>
+      <td><%= link_to "<span class='fa fa-file-text-o'></span>".html_safe, receipt_admin_order_url(order, format: "pdf") %></td>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,6 @@
+$("table#coupons").replaceWith("<%= escape_javascript(render partial:'admin/coupons/coupon_table', locals:{coupons:@coupons}) %>");
+
+$('#modal-form').modal('hide');
+$('#modal-form').on('hidden.bs.modal', function () {
+    $('#modal-form').remove();
+});

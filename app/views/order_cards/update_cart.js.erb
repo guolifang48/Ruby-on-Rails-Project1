@@ -1,0 +1,30 @@
+$("ul#cart-table").replaceWith("<%= escape_javascript(render partial:'orders/cart_table', locals:{order_cards_hash:@order_cards_hash}) %>");
+
+$('#card_name').val('');
+$('#order_card_quantity').val('1');
+
+$("a.card-image-link").tooltip(
+  {'placement': 'right','content':'html'}
+);
+
+<% if @cart.order_cards.count == 0 %>
+
+  $('#empty-cart-message').removeClass('hide');
+  $('#cart-container').addClass('hide');
+  $('#coupon-row').addClass('hide');
+  $('#shipping-scheduling-form').addClass('hide');
+
+<% else %>
+
+  $('#empty-cart-message').addClass('hide');
+  $('#cart-container').removeClass('hide');
+  $('#coupon-row').removeClass('hide');
+  $('#shipping-scheduling-form').removeClass('hide');
+
+<% end %>
+
+$('li#shopping-cart-nav-li').replaceWith("<%= escape_javascript(render partial:'layouts/shopping_cart_li', locals:{active:true}) %>")
+
+// As a last step, update the cards and subtotal price rows
+
+updateCartSubtotals();

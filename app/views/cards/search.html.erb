@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card-list-table">
+      <div class="card-list-heading">
+        <h1>
+          <span class="fa fa-quote-left"></span>
+          <%= params[:term] %>
+          <span class="fa fa-quote-right"></span>
+        </h1>
+      </div>
+
+      <%= render partial:'cards/card_set_table', locals:{cards:@cards} %>
+
+      <div class="panel-body">
+  		  <%= will_paginate @cards, :class => 'simple_pager pull-right', :previous_label => '&laquo; previous', :next_label => 'next &raquo;' %>
+      </div>
+  </div>
+
+  </div><!-- .col-md-12 -->
+</div><!-- .col-row -->

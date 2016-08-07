@@ -1,0 +1,30 @@
+<div id="order-note-form-row" class="row">
+  <div class="col-md-12">
+    <hr>
+    <%= form_for([:admin, @order, @order_note], remote:true) do |f| %>
+    <h4>Log note on order</h4>
+      <div class="form-group">
+        <%= f.label :subject, class:'control-label' %>
+        <%= f.text_field :subject, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :body, class:'control-label' %>
+        <%= f.text_area :body, rows:4, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2">
+            <%= f.submit 'Save', class:'btn btn-primary btn-block btn-outline' %>
+          </div>
+          <div class="col-md-4">
+            <%= link_to 'Cancel', '#', class:'btn cancel-btn btn-default btn-block btn-outline' %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+

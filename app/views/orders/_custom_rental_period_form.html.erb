@@ -1,0 +1,10 @@
+<div class="custom-rental-form">
+  <div class="pull-left form-group width-60">
+    <%= select_tag :custom_rental_period,  options_for_select((3..30).step(1).collect{|i| ["#{i} days", i] }), class:'form-control' %>
+  </div>
+  <div class="pull-right form-group width-40">
+    <%= link_to '<span class="fa fa-check"></span>'.html_safe, '#', class:'btn btn-sm btn-success icon-only-btn' %>
+    <%= link_to '<span class="fa fa-times-circle"></span>'.html_safe, '#', class:'btn btn-sm btn-danger icon-only-btn' %>
+  </div>
+  <div class="clear">
+</div>

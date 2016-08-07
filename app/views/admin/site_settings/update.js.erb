@@ -1,0 +1,6 @@
+$("tr#site_setting-<%= @site_setting.id %> span.rarity-price").text("<%= @site_setting.price_in_dollars %>");
+
+$('#modal-form').modal('hide');
+$('#modal-form').on('hidden.bs.modal', function () {
+    $('#modal-form').remove();
+});

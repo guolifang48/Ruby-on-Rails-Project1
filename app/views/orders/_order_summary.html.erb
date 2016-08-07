@@ -1,0 +1,54 @@
+  <div class="order-summary-fields">
+    <table class="table">
+      <tbody class="no-thead">
+        <tr>
+          <td>Rental price</td>
+          <td>$<%= order.subtotal_sum_in_dollars %></td>
+        </tr>
+        <tr>
+          <td><%= order.shipping_method_to_s %></td>
+          <td>$<%= order.shipping_method_price_in_dollars %></td>
+        </tr>
+        <% if order.coupon.present? %>
+        <tr>
+          <td>Coupon #<%= order.coupon.coupon_code %></td>
+          <td><%= order.coupon.coupon_value %>% off</td>
+        </tr>
+        <% end %>
+        <% if order.get_sales_tax > 0 %>
+        <tr>
+          <td>Sales tax (<%= order.sales_tax_to_s %>)</td>
+          <td>$<%= order.sales_tax_in_dollars %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <th class="text-success">
+            Total
+          </th>
+          <th class="text-success">
+            $<%= order.order_total_in_dollars %>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="order_cards" class="table order-summary">
+      <thead>
+        <tr>
+          <th colspan="3">Cards</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% order_cards_hash.each do |card_type_index, order_cards| %>
+        <% order_cards.each do |order_card| %>
+        <tr>
+          <td><%= order_card.quantity %>x</td>
+          <td><%= order_card.card.name %></td>
+          <td><%= order_card.card.card_set.name %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div><!-- .form-group-fields -->

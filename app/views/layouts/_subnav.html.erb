@@ -1,0 +1,27 @@
+<%# BEGIN SUBNAV %>
+<div id="sub-nav" class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+
+    <%= form_tag search_cards_path, method:'get', class:'navbar-form navbar-left' do %>
+      <div class="form-group navbar-search input-group">
+        <span class="input-group-addon">
+          <span class="fa fa-search"></span>
+        </span>
+        <%= text_field_tag('term', "", :placeholder => 'Search for a card', class: "form-control", id:'card-search', data:{ autocomplete_source: search_cards_url }) %>
+      </div>
+    <% end %>
+
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if params[:controller] == 'card_sets' %>"><%= link_to 'Browse by set', card_sets_path %></li>
+      <li class="<%= 'active' if params[:controller] == 'template_decks' %>"><%= link_to 'Top Standard Decks', template_decks_path %></li>
+      <%= render partial:'layouts/shopping_cart_li', locals:{active:(true if params[:action] == 'cart')} %>
+    </ul>
+
+    <div class="nav navbar-right facebook-nav">
+      <%= render 'layouts/like_button' %>
+    </div>
+
+  </div>
+</div>
+
+<%# END SUBNAV %>

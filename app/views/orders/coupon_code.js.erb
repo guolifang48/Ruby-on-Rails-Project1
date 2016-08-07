@@ -1,0 +1,8 @@
+<% if @coupon.present? %>
+  $('#coupon-code-form-error').remove();
+  $('form#coupon-code-form').after("<%=j render partial: 'orders/coupon', locals:{coupon:@coupon} %>");
+  $('form#coupon-code-form').remove();
+<% else %>
+  $('#coupon-code-form-error').remove();
+  $('form#coupon-code-form').prepend("<div id='coupon-code-form-error' class='bs-callout bs-callout-danger'>This coupon code is invalid or expired.</div>");
+<% end %>

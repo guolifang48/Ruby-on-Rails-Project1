@@ -1,0 +1,28 @@
+<div id="template-deck-card-form-row" class="row">
+  <div class="col-md-12">
+    <%= form_for([:admin, @template_deck, @template_deck_card], class:'form-horizontal', remote:true) do |f| %>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <%= label_tag :card_name, "Card", class:'control-label' %>
+          <%= text_field_tag('term', "", :placeholder => 'Search for a card', class: "form-control", id:'card_name', data:{ autocomplete_source: search_admin_cards_url }) %>
+          <%= f.hidden_field :card_id %>
+        </div>
+        <div class="col-md-2 form-group">
+          <%= f.label :quantity, class:'control-label' %>
+          <%= f.number_field :quantity, class:"form-control" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 checkbox-form-group">
+          <label for="template_deck_card_sideboard">Sideboard <%= f.check_box :sideboard %></label>
+        </div>
+        <div class="col-md-2 template-deck-card-submit">
+          <%= f.submit 'Add card', class:'btn btn-success btn-block' %>
+        </div>
+        <div class="col-md-2 template-deck-card-cancel">
+          <%= link_to 'cancel', '#', class:'btn btn-danger btn-block' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

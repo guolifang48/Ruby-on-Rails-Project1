@@ -1,0 +1,13 @@
+<table id="order_cards" class="table order-summary">
+  <tbody>
+    <% order_cards_hash.each do |card_type_index, order_cards| %>
+    <% order_cards.each do |order_card| %>
+    <tr>
+      <td><%= order_card.card.name %></td>
+      <td>x<%= order_card.quantity %></td>
+      <td><%= order_card.card.card_set.name %></td>
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>

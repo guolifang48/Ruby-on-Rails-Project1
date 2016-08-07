@@ -1,0 +1,26 @@
+<tr id="user-<%= user.id %>">
+  <td><%= user.created_at.strftime('%b %e %y') %></td>
+  <td><%= user.full_name %></td>
+  <td><%= user.email %></td>
+  <td><%= user.verification_status %></td>
+  <td>
+    <% if user.primary_verification_quiz.present? %>
+    <%= link_to 'id quiz', admin_verification_quiz_path(user.primary_verification_quiz) %>
+    <% end %>
+  </td>
+  <td class="admin-role"><%= (user.has_role? :admin) ? 'admin' : '' %></td>
+  <td class="admin-toggle-link">
+    <% if current_user.id != user.id %>
+      <% if (user.has_role? :admin) %>
+      <%= link_to 'remove admin', toggle_admin_admin_user_path(user), remote:true %>
+      <% else %>
+      <%= link_to 'make admin', toggle_admin_admin_user_path(user), remote:true %>
+      <% end %>
+    <% end %>
+  </td>
+  <td>
+    <% if current_user.id != user.id %>
+    <%= link_to "<span class='fa fa-times-circle-o'></span>".html_safe, admin_user_path(user), method: :delete, data: {confirm: 'Are you sure you want to delete this user and all their records?', remote:true}, class:'text-danger' %>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,56 @@
+<h1>Identity Verification Questions</h1>
+
+<div class="row">
+  <div class="col-md-9">
+
+<p class="callout">
+  Answering these questions will give us a little more information about you to help us decide if you are someone we would like to entrust our cards. Once you submit the form you will not be able to edit your responses.
+</p>
+
+<div id="verification-quiz-form-row" class="row">
+  <div class="col-md-12">
+    <hr>
+    <%= form_for([current_user, @verification_quiz]) do |f| %>
+
+      <div class="form-group">
+        <h4>1. <%= VerificationQuiz::QUESTIONS[0] %></h4>
+        <%= f.text_area :answer_1, rows:4, class:"form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <h4>2. <%= VerificationQuiz::QUESTIONS[1] %></h4>
+        <%= f.text_area :answer_2, rows:4, class:"form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <h4>3. <%= VerificationQuiz::QUESTIONS[2] %></h4>
+        <%= f.text_area :answer_3, rows:4, class:"form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+        <h4>4. <%= VerificationQuiz::QUESTIONS[3] %></h4>
+        <%= f.text_area :answer_4, rows:4, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <h4>5. <%= VerificationQuiz::QUESTIONS[4] %></h4>
+        <%= f.text_area :answer_5, rows:4, class:"form-control" %>
+      </div>
+
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.submit 'Save', class:'btn btn-primary btn-block' %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+

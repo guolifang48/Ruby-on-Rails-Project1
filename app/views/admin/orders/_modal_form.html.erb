@@ -1,0 +1,169 @@
+<div id="modal-form" class="modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          Edit order
+        </h4>
+      </div>
+      <%= form_for([:admin, @order], html:{class:'form-horizontal'}, remote:true) do |f| %>
+
+      <div class="modal-body">
+        <div class="row"><div class="col-md-11">
+
+        <div class="form-group">
+          <%= f.label :date_needed, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.datetime_select :date_needed, :discard_hour => true, :discard_minute => true, :discard_second => true, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :days_needed, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.number_field :days_needed, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :date_due, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.datetime_select :date_due, :discard_hour => true, :discard_minute => true, :discard_second => true, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :comment, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= (simple_format @order.comment) if @order.comment.present? %>
+          </div>
+        </div>
+
+        <hr>
+
+
+        <div class="form-group">
+          <%= f.label :shipping_method, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.select :shipping_method, Order::SHIPPING.map{ |k, s| [s['s'], k] },{}, class:'form-control' %>
+          </div>
+        </div>
+
+
+        <div class="form-group-fields">
+
+          <div class="form-group">
+            <%= label_tag :shipping, "Billing Info", class:"col-sm-3 control-label" %>
+            <div class="col-sm-9">
+
+                <%= f.text_field :billing_ship_to_name, class:'form-control', placeholder:'Name' %>
+                <%= f.text_field :billing_phone, class:'form-control', placeholder:'Phone' %>
+
+                <%= f.text_field :billing_street_address_first_line, class:'form-control', placeholder:'Street Address' %>
+
+                <%= f.text_field :billing_street_address_second_line, class:'form-control', placeholder:'Apartment / Suite / Floor' %>
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <%# f.label :city, "City", class:"control-label" %>
+                    <%= f.text_field :billing_city, class:'form-control', placeholder:'City' %>
+                  </div>
+
+                  <div class="col-md-4">
+                    <%# f.label :province, "State/Province", class:"control-label" %>
+                    <%= f.text_field :billing_province, class:'form-control', placeholder:'State / Province' %>
+                  </div>
+
+                  <div class="col-md-3">
+                    <%# f.label :zipcode, "Zip code", class:"control-label" %>
+                    <%= f.text_field :billing_zipcode, class:'form-control', placeholder:'Zip' %>
+                  </div>
+
+                </div>
+            </div>
+
+
+            </div>
+          <div class="form-group">
+            <%= label_tag :shipping, "Shipping Info", class:"col-sm-3 control-label" %>
+            <div class="col-sm-9">
+
+                <%= f.text_field :ship_to_name, class:'form-control', placeholder:'Name' %>
+              <%= f.text_field :phone, class:'form-control', placeholder:'Phone' %>
+
+                <%= f.text_field :street_address_first_line, class:'form-control', placeholder:'Street Address' %>
+
+                <%= f.text_field :street_address_second_line, class:'form-control', placeholder:'Apartment / Suite / Floor' %>
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <%# f.label :city, "City", class:"control-label" %>
+                    <%= f.text_field :city, class:'form-control', placeholder:'City' %>
+                  </div>
+
+                  <div class="col-md-4">
+                    <%# f.label :province, "State/Province", class:"control-label" %>
+                    <%= f.text_field :province, class:'form-control', placeholder:'State / Province' %>
+                  </div>
+
+                  <div class="col-md-3">
+                    <%# f.label :zipcode, "Zip code", class:"control-label" %>
+                    <%= f.text_field :zipcode, class:'form-control', placeholder:'Zip' %>
+                  </div>
+
+                </div>
+
+                <%= f.country_select(:country, { priority_countries: ["US", "GB"]}, { class: 'form-control'}) %>
+              </div>
+
+
+            </div>
+          </div>
+          <hr>
+          <div class="form-group checkbox-form-group">
+            <label class="control-label col-sm-5" for="order_paid">Has the order been paid?</label>
+            <div class="col-sm-7">
+              <%= f.check_box :paid %>
+            </div>
+          </div>
+
+
+          <div class="form-group checkbox-form-group datetime-or-nil">
+            <label class="control-label col-sm-5" for="order_is_shipped">Has the order been shipped?</label>
+            <div class="col-sm-7">
+              <%= check_box_tag :is_shipped, 'shipped', (true if @order.shipped.present?) %>
+              <%= f.hidden_field :shipped, value:'' %>
+              <div class="shipped-datetime-container">
+              <% if @order.shipped.present? %>
+              <%= render partial:'admin/orders/attr_datetime_select', locals:{attribute:'shipped'} %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group checkbox-form-group datetime-or-nil">
+            <label class="control-label col-sm-5" for="order_is_returned">Has the order been returned?</label>
+            <div class="col-sm-7">
+              <%= check_box_tag :is_returned, 'returned', (true if @order.returned.present?) %>
+              <%= f.hidden_field :returned, value:'' %>
+              <div class="returned-datetime-container">
+              <% if @order.returned.present? %>
+              <%= render partial:'admin/orders/attr_datetime_select', locals:{attribute:'returned'} %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+
+      </div></div>
+      </div><!-- .modal-body -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <%= f.submit "Save", class:'btn btn-primary' %>
+      </div><!-- /.modal-footer -->
+
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

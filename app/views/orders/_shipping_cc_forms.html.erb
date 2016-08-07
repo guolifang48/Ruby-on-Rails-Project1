@@ -1,0 +1,113 @@
+<%= form_for(@cart, url:authorize_payment_order_path(@cart), html:{class:'form-horizontal authorize-payment-form'}) do |f| %>
+
+<h3>Billing Info</h3>
+
+<div class="form-group-fields">
+
+  <%= f.text_field :billing_ship_to_name, class:'form-control', placeholder:'Name' %>
+  <%= f.text_field :billing_phone, class:'form-control', placeholder:'Phone' %>
+
+  <%= f.text_field :billing_street_address_first_line, class:'form-control', placeholder:'Street Address' %>
+
+  <%= f.text_field :billing_street_address_second_line, class:'form-control', placeholder:'Apartment / Suite / Floor' %>
+
+  <div class="row">
+    <div class="col-md-5">
+      <%# f.label :city, "City", class:"control-label" %>
+      <%= f.text_field :billing_city, class:'form-control', placeholder:'City' %>
+    </div>
+
+    <div class="col-md-4">
+      <%= f.select(:billing_province, options_for_select(([['State', '']] + us_states), f.object.billing_province), {}, class:'form-control') %>
+    </div>
+
+    <div class="col-md-3">
+      <%# f.label :zipcode, "Zip code", class:"control-label" %>
+      <%= f.text_field :billing_zipcode, class:'form-control', placeholder:'Zip' %>
+    </div>
+
+  </div>
+</div>
+
+<h3>Shipping Info</h3>
+
+<div class="form-group-fields">
+
+<%= f.text_field :ship_to_name, class:'form-control', placeholder:'Name' %>
+<%= f.text_field :phone, class:'form-control', placeholder:'Phone' %>
+
+<%= f.text_field :street_address_first_line, class:'form-control', placeholder:'Street Address' %>
+
+<%= f.text_field :street_address_second_line, class:'form-control', placeholder:'Apartment / Suite / Floor' %>
+
+<div class="row">
+  <div class="col-md-5">
+    <%# f.label :city, "City", class:"control-label" %>
+    <%= f.text_field :city, class:'form-control', placeholder:'City' %>
+  </div>
+
+  <div class="col-md-4">
+    <%= f.select(:province, options_for_select(([['State', '']] + us_states), f.object.province), {}, class:'form-control') %>
+  </div>
+
+  <div class="col-md-3">
+    <%# f.label :zipcode, "Zip code", class:"control-label" %>
+    <%= f.text_field :zipcode, class:'form-control', placeholder:'Zip' %>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="tax-notification hide">
+      <p class="text-warning text-bold"><span class="fa fa-info-circle"></span>Orders shipping to Indiana are subject to a <%= Order.sales_tax_to_s %> sales tax.</p>
+    </div>
+  </div>
+</div>
+
+  <%= f.hidden_field :country, value:'US' %>
+
+</div>
+
+<h3>Credit card information</h3>
+
+<div class="form-group-fields">
+
+<% if current_user.stripe_customer_id.present? && current_user.last_4_digits.present? && !params[:credit_card] %>
+<div class="alert alert-success">
+  <h4>Your <%= current_user.card_type %> ending in <%= current_user.last_4_digits %> will be captured for this order and charged later when your order is shipped.</h4>
+  <p><%= link_to "Click here if you would like to use a different card.", payment_order_path(@cart, credit_card:true) %></p>
+</div>
+<% else %>
+
+<div id="stripe_error" class="bs-callout bs-callout-danger hide">
+  <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+</div>
+
+<%= hidden_field_tag :stripe_card_token %>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= text_field_tag :card_number, nil, name: nil, placeholder:'Card Number', class:'form-control' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class:'form-control'} %>
+  </div>
+  <div class="col-sm-4">
+    <%= select_year nil, {start_year: Date.today.year, end_year:  Date.today.year+25}, {name: nil, id: "card_year", class:'form-control'} %>
+  </div>
+  <div class="col-sm-4">
+    <%= text_field_tag :card_code, nil, name: nil, class:'form-control', placeholder:'Security Code' %>
+  </div>
+</div>
+
+<br>
+<% end %>
+
+<%= f.submit "Authorize and Submit", class:'btn btn-success btn-block', data:{disabled:true} %>
+
+<% end %>
+</div>

@@ -1,0 +1,6 @@
+$("li#card-<%= @order_card.card_id %>").replaceWith("<%=j render partial: 'order_cards/cart_line_item_form', locals:{order_card:@order_card} %>");
+
+$('.line-item-cancel').click(function() {
+  var card_id = $(this).attr('data-card-id');
+  $("li#card-" + card_id).replaceWith("<%=j render partial: 'order_cards/cart_line_item', locals:{order_card:@order_card} %>");
+});

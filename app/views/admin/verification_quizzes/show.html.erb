@@ -1,0 +1,33 @@
+<div class="pull-right"><%= link_to '<span class="fa fa-reply"></span> back to user index'.html_safe, admin_users_path, class:'btn btn-primary btn-outline' %></div>
+<h1>Identity Verification Questions</h1>
+
+<h4>User: <%= @user.full_name %> | Email <%= @user.email %></h4>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial:'admin/verification_quizzes/user_verification_controls', locals:{user:@user} %>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-9">
+
+    <h4>1. <%= VerificationQuiz::QUESTIONS[0] %></h4>
+    <%= simple_format @verification_quiz.answer_1 %>
+    <br>
+    <h4>2. <%= VerificationQuiz::QUESTIONS[1] %></h4>
+    <%= simple_format @verification_quiz.answer_2 %>
+    <br>
+    <h4>3. <%= VerificationQuiz::QUESTIONS[2] %></h4>
+    <%= simple_format @verification_quiz.answer_3 %>
+    <br>
+    <h4>4. <%= VerificationQuiz::QUESTIONS[3] %></h4>
+    <%= simple_format @verification_quiz.answer_4 %>
+    <br>
+    <h4>5. <%= VerificationQuiz::QUESTIONS[4] %></h4>
+    <%= simple_format @verification_quiz.answer_5 %>
+    <br>
+  </div>
+</div>
+
+

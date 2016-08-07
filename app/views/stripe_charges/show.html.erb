@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @stripe_charge.order_id %>
+</p>
+
+<p>
+  <strong>Charge:</strong>
+  <%= @stripe_charge.charge_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @stripe_charge.amount %>
+</p>
+
+<p>
+  <strong>Last 4 digits:</strong>
+  <%= @stripe_charge.last_4_digits %>
+</p>
+
+<p>
+  <strong>Card type:</strong>
+  <%= @stripe_charge.card_type %>
+</p>
+
+<p>
+  <strong>Exp month:</strong>
+  <%= @stripe_charge.exp_month %>
+</p>
+
+<p>
+  <strong>Exp year:</strong>
+  <%= @stripe_charge.exp_year %>
+</p>
+
+<%= link_to 'Edit', edit_stripe_charge_path(@stripe_charge) %> |
+<%= link_to 'Back', stripe_charges_path %>

@@ -1,0 +1,20 @@
+<table id="template-deck-table-sideboard" class="table card-list-table <%= 'hide' if sideboard_template_deck_cards.blank? %>">
+  <thead>
+    <tr>
+      <th colspan="6">Sideboard</th>
+    </tr>
+    <tr>
+      <th>Card</th>
+      <th>Qty</th>
+      <th>Type</th>
+      <th>Rarity</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% sideboard_template_deck_cards.each do |template_deck_card| %>
+      <%= render partial:'admin/template_decks/template_deck_tr', locals:{template_deck_card:template_deck_card} %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<tr id="card-<%= card.id %>" class="card_tr">
+  <td class="card-name col-md-2">
+    <%= link_to card.name, '#', title:"<img class='card-tooltip' src='#{card_image(card)}'>", data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+  </td>
+  <td class="col-md-1"><%= card.rarity %></td>
+  <td class="col-md-3 text-center">
+    <%= "$#{card.get_price}" %>
+    <%= link_to "<span class='fa fa-cog'></span>".html_safe, edit_admin_card_path(card), remote:true %>
+  </td>
+  <td class="col-md-1 text-center">
+    <span class="inventory-count">
+      <a href="#" data-xeditable="true" data-pk="<%= card.id %>" data-model="card" data-name="inventory" data-url="<%= admin_card_url(card) %>" data-title="Availability">
+      <%= card.inventory %>
+      </a>
+    </span>
+  </td>
+  <td class="col-md-1 text-center"><%= card.upcoming_reserved %></td>
+</tr>

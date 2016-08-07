@@ -1,0 +1,45 @@
+<%= form_for(@stripe_charge) do |f| %>
+  <% if @stripe_charge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stripe_charge.errors.count, "error") %> prohibited this stripe_charge from being saved:</h2>
+
+      <ul>
+      <% @stripe_charge.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order_id %><br>
+    <%= f.number_field :order_id %>
+  </div>
+  <div class="field">
+    <%= f.label :charge_id %><br>
+    <%= f.text_field :charge_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :last_4_digits %><br>
+    <%= f.text_field :last_4_digits %>
+  </div>
+  <div class="field">
+    <%= f.label :card_type %><br>
+    <%= f.text_field :card_type %>
+  </div>
+  <div class="field">
+    <%= f.label :exp_month %><br>
+    <%= f.text_field :exp_month %>
+  </div>
+  <div class="field">
+    <%= f.label :exp_year %><br>
+    <%= f.text_field :exp_year %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

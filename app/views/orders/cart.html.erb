@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-md-8">
+
+    <%= render partial:'orders/unavailables_message', locals:{cart:@cart} %>
+
+    <div id="empty-cart-message" class="alert alert-warning <%= 'hide' unless @cart.order_cards.count == 0 %>">
+      <h4>You have not yet added any cards to your cart.</h4>
+      <p>Use the quick add link to add cards to your cart, browse through the sets or rent one of the top standard decks listed on the main page.</p>
+    </div>
+
+  <div id="cart-container" class="<%= 'hide' if @cart.order_cards.count == 0 %>">
+      <%= render partial:'orders/cart_table', locals:{ order_cards_hash:@order_cards_hash } %>
+      <%= render partial:'orders/subtotal_rows', locals:{cart:@cart} %>
+    <div class="row text-right free-shipping">
+      <div class="col-md-11">
+        <%= check_box :free, :shipping %> <label for="free_shipping">Local Pickup & Return - Terre Haute, IN</label>
+      </div>
+    </div>
+  </div>
+    <br>
+    <%= link_to "<span class='fa fa-shopping-cart'></span> Clear cart".html_safe, clear_cart_path, id:'new-order-card-link', class:'btn btn-wd btn-default btn pull-left' %>
+    <div class="clear"></div>
+    <br>
+    <% @order_card = @cart.order_cards.build %>
+    <%= render 'order_cards/quick_add_form' %>
+    <div class="clear"></div>
+
+    <br><br>
+    <br><br>
+      <div id="coupon-row" class="row <%= 'hide' if @cart.order_cards.count == 0 %>">
+        <div class="col-md-6">
+          <% if @cart.coupon.present? %>
+            <%= render partial:'orders/coupon', locals:{coupon:@cart.coupon} %>
+          <% else %>
+            <%= form_tag(coupon_code_order_path(@cart), method: :post, class:'', remote:true, id:'coupon-code-form') do %>
+            <div class="input-group">
+              <%= text_field_tag('coupon_code', "", :placeholder => 'Have a coupon code?', class: "form-control") %>
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="submit">apply</button>
+              </span>
+            </div><!-- /input-group -->
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+  </div>
+  <div id="shipping-scheduling-form" class="col-md-4 <%= 'hide' if @cart.order_cards.count == 0 %>">
+    <%= form_for(@cart, url:process_schedule_order_url(@cart)) do |f| %>
+    <div class="order-info">
+
+      <h5>When do you want your cards to arrive?</h5>
+
+      <div class="alert alert-info">
+        <div class="date-picker"  data-min-date="<%= "#{@min_date.strftime('%Y')}/#{@min_date.strftime('%m')}/#{@min_date.strftime('%e')}" %>" data-date="<%= "#{@display_date.strftime('%Y')}/#{@display_date.strftime('%m')}/#{@display_date.strftime('%e')}" %>" data-keyboard="true">
+          <div class="date-container pull-left">
+            <h4 class="weekday"></h4>
+            <h2 class="date"></h2>
+            <h4 class="year pull-right"></h4>
+          </div>
+          <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left date-disabled"></span>
+          <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
+          <div class="input-group input-datepicker">
+            <input type="text" class="form-control" data-format="YYYY/MM/DD" placeholder="YYYY/MM/DD">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <%= f.hidden_field :date_needed %>
+      <%= f.hidden_field :shipping_method, value:'Priority Mail' %>
+
+      <h5>How long do you want to keep the deck?</h5>
+
+      <%= select_tag :days_needed_select, options_for_select([['3 Days',3],["14 Days", 14],["30 Days", 30], ["-- custom --", '-- custom --']], (@custom ? '-- custom --' : @cart.days_needed)), class:'form-control' %>
+
+    <div id="custom-field-holder" class="row <%= @custom ? '' : 'hide' %>">
+      <div class="col-md-12">
+        <%= f.select(:days_needed, options_for_select( (3..30).collect{|i| ["#{i} days",i]}, @cart.days_needed ), {}, class:'form-control custom-field') %>
+      </div>
+    </div>
+
+
+      <div class="order-date-summary alert alert-success">
+        <p class="text-success">Your order will arrive on or before <span class="arrival-date">October 15</span> and must be postmarked on or before <span class="due-date">October 20</span> when returned.</p>
+      </div>
+
+      <button type="submit" class="btn btn-block btn-success btn-lg pull-right">
+        <span class='fa fa-shopping-cart'></span> checkout
+      </button>
+    <div class="clear"></div>
+
+    </div>
+    <% end %>
+  </div>
+</div>
+<br><br>
+<br><br>
+
+<script>
+    $('.order-card-cancel a.btn').click(function(e) {
+        $('#card_name').val('');
+        $('#order_card_quantity').val('1');
+        e.preventDefault();
+    });
+
+    $('#card_name').autocomplete({
+        source: $('#card_name').data('autocomplete-source'),
+        dataType: "json",
+        minLength: 2,
+        focus: function(event, ui) {
+            event.preventDefault();
+            $('#order-card-form-row #order_card_current_price').val(ui.item.raw_price);
+            $('#order-card-form-row #card_name').val(ui.item.label);
+            $('#order-card-form-row #order_card_card_id').val(ui.item.value);
+        },
+        select: function(event, ui) {
+            event.preventDefault();
+            $('#order-card-form-row #card_name').val(ui.item.label);
+            $('#order-card-form-row #order_card_card_id').val(ui.item.value);
+        },
+        _renderItem: function( ul, item ) {
+            return $( "<li>" )
+                    .attr( "data-value", item.value )
+                    .append("<img src='" + item.card_image_url + "' />")
+                    .appendTo( ul );
+        }
+    });
+
+    $.ui.autocomplete.prototype._renderItem = function(ul, item) {
+        return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append(
+                '<a href="' + item.search_cards_url + '"><div class="ui-card-price pull-right badge badge-success">' + item.card_price + '</div>'
+                +  '<img src="' + item.card_image_url + '" class="pull-left ui-card-image" />'
+                +  '<div class="ui-card-title">' + item.label + '</div>'
+                +  '<div class="ui-card-type">' + item.card_color_and_type + ' | ' + item.card_rarity + '</div>'
+                +  '<div class="ui-card-description">' + item.card_text + '</div>'
+                + '<div class="clear"></div></a>'
+        )
+                .appendTo( ul );
+    };
+</script>

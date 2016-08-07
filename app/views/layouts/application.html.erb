@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SpareDeck - Rent Magic: the Gathering Decks and Singles for Events</title>
+  <meta name="robots" content="index">
+
+  <%= render partial:'layouts/facebook_meta_tags' %>
+
+  <!-- Google webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Lobster|Oleo+Script:400,700|Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+  <%= javascript_include_tag "https://js.stripe.com/v1/" %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLISHABLE_KEY %>
+  <%= tag :meta, name: 'description', content: 'Rent MTG singles and decks for Standard and Modern through the mail for events.' %>
+
+</head>
+
+<body class="<%= "#{controller.controller_name} #{controller.action_name} #{@body_class}".strip %>">
+
+  <% unless current_user.has_role? :admin %>
+  <% if !current_user.guest && current_user.primary_verification_quiz.blank? && params[:controller] != 'verification_quizzes' && params[:action] != 'cart' && params[:action] != 'payment' %>
+  <div id="verification">
+    <div class="alert alert-danger">
+      <p><span class="fa fa-warning"></span> Your account is not yet verified. <%= link_to 'Please click here and answer the questions on this page to do so.', new_user_verification_quiz_path(current_user)  %> Your order will not be shipped until this is complete.</p>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+
+  <%= render 'layouts/navbar' %>
+  <%= render 'layouts/subnav' %>
+
+  <div id="notification-growl">
+    <% flash.each do |key, value| %>
+      <%= content_tag :div, value, class: "flash #{key}" %>
+    <% end %>
+  </div>
+
+  <div id="page-content" class="container">
+    <%= yield %>
+  </div>
+
+  <%= render 'layouts/footer' %>
+  <div id="form-target"></div>
+
+  <%= render 'layouts/google_tracking' %>
+  <script type="text/javascript">
+  window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+  </script>
+
+</body>
+</html>

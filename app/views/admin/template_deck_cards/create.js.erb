@@ -1,0 +1,4 @@
+$('#card_name, #template_deck_card_quantity').val('');
+$('#template_deck_card_sideboard').prop( "checked", false );
+$("table#template-deck-table").replaceWith("<%= escape_javascript(render partial: 'admin/template_decks/template_deck_table', locals: { template_deck_card_hash: @template_deck_card_hash }) %>");
+$("table#template-deck-table-sideboard").replaceWith("<%= escape_javascript(render partial: 'admin/template_decks/sideboard_table', locals: { sideboard_template_deck_cards: @sideboard_template_deck_cards }) %>");

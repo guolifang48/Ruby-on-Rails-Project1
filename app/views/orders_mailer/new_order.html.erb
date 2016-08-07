@@ -1,0 +1,7 @@
+<tr>
+  <td>
+    <%= render partial:'admin/orders/order_info', locals:{ order:@order, order_controls:false } %>
+
+    <%= render partial:'layouts/email_order_summary', locals:{order:@order, order_cards_hash:@order_cards_hash} %>
+  </td>
+</tr>

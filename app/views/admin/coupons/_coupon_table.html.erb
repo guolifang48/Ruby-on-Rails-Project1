@@ -1,0 +1,29 @@
+<table id="coupons" class="table">
+  <thead>
+    <tr>
+      <th>Coupon code</th>
+      <th>Active dates</th>
+      <th>Coupon type</th>
+      <th>Coupon value</th>
+      <th>Use count</th>
+      <th>Notes</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% coupons.each do |coupon| %>
+      <tr>
+        <td><%= coupon.coupon_code %></td>
+        <td><%= format_date coupon.start_date %>
+ - <%= format_date coupon.end_date %></td>
+        <td><%= coupon.coupon_type %></td>
+        <td><%= coupon.coupon_value %></td>
+        <td><%= coupon.use_count %></td>
+        <td><%= coupon.notes %></td>
+        <td class="col-md-1"><%= link_to "<span class='fa fa-cog'></span> edit".html_safe, edit_admin_coupon_path(coupon), remote:true, class:'btn btn-default btn-sm btn-outline btn-block' %></td>
+        <td class="col-md-1"><%= link_to "<span class='fa fa-times-circle'></span> destroy".html_safe, admin_coupon_path(coupon), method: :delete, data: { confirm: 'Are you sure?' }, remote:true, class:'btn btn-danger btn-sm btn-outline btn-block' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

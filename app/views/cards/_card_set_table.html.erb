@@ -1,0 +1,6 @@
+<ul id="card-set-table" class="list-group siteList">
+  <% @cards.each do |card| %>
+    <% order_card = @cart.order_cards.find_by(card_id:card.id) %>
+    <%= render partial:'cards/card_set_line_item', locals:{card:card, order_card:order_card} %>
+  <% end %>
+</ul>

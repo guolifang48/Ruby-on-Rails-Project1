@@ -1,0 +1,34 @@
+<tr>
+  <td>
+    <p class="dear-p">
+      Dear <%= @order.user.first_name %>,
+    </p>
+
+    <p>
+      Your cards from SpareDeck are due in the mail <b>today</b>.
+      <br>
+      To confirm that you have returned the cards, once you put them in the mail, <%= link_to 'please click here', user_return_url(@order.return_token) %>. Clicking this link will alert our team the cards are on their way.
+    </p>
+
+    <p>
+      If the cards are not returned in the mail, then a late fee will be applied for each day they are late.
+    </p>
+
+    <p>Sending the cards back is easy. Just put the cards back in the box like they arrived and place the pre-paid postage label over the old label!</p>
+
+    <p>Below is a summary of the cards to be returned:</p>
+
+    <p><b>Thank you for using SpareDeck!</b></p>
+
+    <p>
+      Sincerely,<br>
+      <b>SpareDeck</b>
+    </p>
+
+    <%= render partial:'orders_mailer/mailer_cards_summary', locals:{order:@order, order_cards_hash:@order_cards_hash} %>
+  </td>
+</tr>
+
+
+
+

@@ -1,0 +1,43 @@
+<div class="row order-section-row">
+  <div class="col-md-12">
+
+    <div class="order-section">
+      <h3>Order fees</h3>
+      <table class="table">
+        <tbody class="no-thead">
+          <tr>
+            <td>Cards subtotal</td>
+            <td>$<%= @order.subtotal_in_dollars %></td>
+          </tr>
+          <tr>
+            <td>Shipping cost</td>
+            <td>$<%= @order.shipping_method_price_in_dollars %></td>
+          </tr>
+          <tr>
+            <td>Duration cost</td>
+            <td>$<%= @order.duration_cost_in_dollars(@order.days_needed) %></td>
+          </tr>
+          <% if order.coupon.present? %>
+          <tr>
+            <td>Coupon #<%= order.coupon.coupon_code %></td>
+            <td><%= order.coupon.coupon_value %>% off</td>
+          </tr>
+          <% end %>
+          <% if order.get_sales_tax > 0 %>
+          <tr>
+            <td>Sales tax (<%= order.sales_tax_to_s %>)</td>
+            <td>$<%= order.sales_tax_in_dollars %></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td>Total</td>
+            <td>$<%= @order.order_total_in_dollars %></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div><!-- .order-section -->
+
+  </div>
+</div>
+

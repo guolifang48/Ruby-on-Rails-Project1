@@ -1,0 +1,20 @@
+<table id="template-deck-table" class="table card-list-table <%= 'hide' if template_deck_card_hash.blank? %>">
+  <thead>
+      <th>Card</th>
+      <th>Qty</th>
+      <th>Type</th>
+      <th>Rarity</th>
+      <th>Price</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% template_deck_card_hash.each do |card_type, template_deck_cards| %>
+      <tr class="card-table-title-row info">
+        <td colspan="6"><%= card_type_array[card_type] %></td>
+      </tr>
+      <% template_deck_cards.each do |template_deck_card| %>
+        <%= render partial:'admin/template_decks/template_deck_tr', locals:{template_deck_card:template_deck_card} %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

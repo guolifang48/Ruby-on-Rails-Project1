@@ -1,0 +1,3 @@
+$("div#order-info").replaceWith("<%= escape_javascript(render partial:'admin/orders/order_info', locals:{order:@order, order_controls:true}) %>");
+
+$("div#order-controls").replaceWith("<%= escape_javascript(render partial:'admin/orders/order_controls', locals:{order:@order}) %>");

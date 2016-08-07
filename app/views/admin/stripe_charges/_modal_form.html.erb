@@ -1,0 +1,63 @@
+<div id="modal-form" class="modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          Charge card
+        </h4>
+      </div>
+      <%= form_for([:admin, @order, @stripe_charge], html:{class:'form-horizontal'}, remote:true) do |f| %>
+
+      <div class="modal-body">
+        <div class="row"><div class="col-md-10 col-md-offset-1">
+
+        <div class="form-group">
+          <%= f.label :amount, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.text_field :amount, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :admin_memo, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.text_area :admin_memo, rows:4, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :invoice_memo, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.text_area :invoice_memo, rows:4, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :charge_type, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.select :charge_type, options_for_select([['Order fees','order_fees'],['Damaged cards','damaged_cards'],['Late fees','late_fees']]),{}, class:'form-control' %>
+          </div>
+        </div>
+
+
+
+        <div class="form-group hide">
+          <%= label_tag "completes_invoice", "Order paid?", class:"col-sm-3 control-label" %>
+          <div class="col-sm-9 checkbox-container">
+            <%= check_box_tag "order_paid", true, false, id: 'order_paid' %>
+          </div>
+        </div>
+
+      </div></div>
+      </div><!-- .modal-body -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+      </div><!-- /.modal-footer -->
+
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

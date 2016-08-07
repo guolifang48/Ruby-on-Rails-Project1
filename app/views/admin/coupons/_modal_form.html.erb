@@ -1,0 +1,66 @@
+<div id="modal-form" class="modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          New Coupon
+        </h4>
+      </div>
+      <%= form_for([:admin, @coupon], html:{class:'form-horizontal'}, remote:true) do |f| %>
+
+      <div class="modal-body">
+        <div class="row"><div class="col-md-10 col-md-offset-1">
+
+        <div class="form-group">
+          <%= f.label :coupon_code, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.text_field :coupon_code, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :start_date, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.datetime_select :start_date, :discard_hour => true, :discard_minute => true, :discard_second => true, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :end_date, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.datetime_select :end_date, :discard_hour => true, :discard_minute => true, :discard_second => true, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :coupon_type, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.select :coupon_type, options_for_select([['Percentage','percentage'],['Free shipping','free shipping'],['Dollar amount','dollar amount']]),{}, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :coupon_value, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.number_field :coupon_value, class:'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :notes, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9">
+            <%= f.text_area :notes, rows:4, class:'form-control' %>
+          </div>
+        </div>
+      </div></div>
+      </div><!-- .modal-body -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <%= f.submit "Save", class:'btn btn-primary' %>
+      </div><!-- /.modal-footer -->
+
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

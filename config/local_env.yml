@@ -1,0 +1,10 @@
+MANDRILL_PASSWORD: L75VarNa5IopOW3NJsp8YQ
+MANDRILL_USERNAME: help@sparedeck.com
+ADMIN_EMAIL: christopher.james.hawkins@gmail.com
+STRIPE_SECRET: sk_test_vActGYNStUZQacleBGpgWLi1
+STRIPE_PUBLIC: pk_test_zoVK0Uniq1255a8iKVdbc2RS
+
+#heroku config:set MANDRILL_PASSWORD=L75VarNa5IopOW3NJsp8YQ
+#heroku config:set MANDRILL_USERNAME=help@sparedeck.com
+#heroku config:set ADMIN_EMAIL=help@sparedeck.com
+

@@ -1,0 +1,85 @@
+<%= link_to "<span class='fa fa-plus-circle'></span> create card set".html_safe, new_admin_card_set_path, remote: true, class:'btn btn-outline btn-default btn-wd pull-right' %>
+
+<h1>Manage Card Sets</h1>
+
+<div class="panel panel-default card-list-table">
+  <div class="panel-heading">
+    <h3>Standard sets</h3>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Card set</th>
+        <th>Release date</th>
+        <th>Total inventory</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @standard_card_sets.each do |card_set| %>
+      <tr>
+        <td>
+          <span class="card-set-logo">
+            <%= image_tag(set_logo card_set.code, 'c', 32) %>
+          </span>
+          <span class="card-set-link">
+            <%= link_to card_set.name, admin_card_set_path(card_set.id) %>
+          </span>
+        </td>
+        <td>
+          <%= card_set.release_date.strftime('%B %Y') %>
+        </td>
+        <td>
+          <%= card_set.inventory %>
+        </td>
+        <td class="col-md-2 td-links">
+          <%= link_to '<span class="fa fa-cog"></span> edit'.html_safe, edit_admin_card_set_path(card_set), remote: true %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel panel-default card-list-table">
+  <div class="panel-heading">
+    <h3>All card sets</h3>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Card set</th>
+        <th>Release date</th>
+        <th>Total inventory</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @card_sets.each do |card_set| %>
+      <tr>
+        <td>
+          <span class="card-set-logo">
+            <%= image_tag(set_logo card_set.code, 'c', 32) %>
+          </span>
+          <span class="card-set-link">
+            <%= link_to card_set.name, admin_card_set_path(card_set.id) %>
+          </span>
+        </td>
+        <td>
+          <%= card_set.release_date.strftime('%B %Y') %>
+        </td>
+        <td>
+          <%= card_set.inventory %>
+        </td>
+        <td class="col-md-2 td-links">
+          <%= link_to '<span class="fa fa-cog"></span> edit'.html_safe, edit_admin_card_set_path(card_set), remote: true %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="panel-body">
+		<%= will_paginate @card_sets, :class => 'simple_pager pull-right', :previous_label => '&laquo; previous', :next_label => 'next &raquo;' %>
+  </div>
+</div>
+

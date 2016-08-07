@@ -1,0 +1,5 @@
+$("#order-stripe-charges").replaceWith("<%=j render partial: 'admin/orders/order_stripe_charges', locals:{order:@order} %>");
+
+$("#order-controls").replaceWith("<%=j render partial: 'admin/orders/order_controls', locals:{order:@order} %>");
+
+$("#order-charge-form-target").html('');

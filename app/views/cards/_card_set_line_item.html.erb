@@ -1,0 +1,32 @@
+<li id="card-<%= card.id %>" class="list-group-item order_card <%= 'in-cart' if (order_card.present? && order_card.quantity > 0) %>">
+  <span class="width-15 align-left longtext">
+    <%= link_to card.name, '#', title:('<img src="' + card_image(card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+  </span>
+  <span class="width-20 padding-0-10 longtext">
+    <%= card.card_type %>
+  </span>
+  <span id="mana-cost" class="width-15 padding-0-10 longtext">
+    <%= mana_cost(card) %>
+  </span>
+  <span class="width-10 padding-0-10">
+    <%= "$#{card.get_price}" %>
+  </span>
+
+  <span class="width-20 text-center">
+    <% if order_card.present? && order_card.quantity > 0 %>
+      <%= link_to '<span class="fa fa-chevron-up"></span>'.html_safe, order_card_path(order_card.card, qty:1, origin:'card_set'), class:"btn-xs btn btn-outline btn-success icon-only-btn #{'disabled' if (order_card.quantity > 3)}", remote:true  %>
+      <span class="qty">x<%= order_card.quantity %></span>
+      <%= link_to '<span class="fa fa-chevron-down"></span>'.html_safe, order_card_path(order_card.card, qty:-1, origin:'card_set'), class:"btn-xs btn btn-outline btn-danger icon-only-btn", remote:true  %>
+  <% else %>
+    <%= link_to '<span class="fa fa-chevron-up"></span>'.html_safe, order_order_cards_url(@cart, order_card:{quantity:1, card_id:card.id, current_price:card.raw_price}, origin:'card_set'), method: :post, class:'btn-xs btn btn-outline btn-success icon-only-btn', remote:true %>
+    <span class="qty qty-0">x0</span>
+    <%= link_to '<span class="fa fa-chevron-down"></span>'.html_safe, "order_card_path(order_card.card, qty:-1, origin:'card_set')", class:"btn-xs btn btn-outline btn-danger icon-only-btn disabled", remote:true  %>
+  <% end %>
+  </span>
+
+  <span class="width-10 align-right">
+    <% if order_card.present? && order_card.quantity > 0 %>
+    <%= "$#{order_card.card_total_in_dollars}" %>
+    <% end %>
+  </span>
+</li>

@@ -1,0 +1,29 @@
+<tr>
+  <td>
+    <p class="dear-p">
+      Dear <%= @order.user.first_name %>,
+    </p>
+
+    <p>Thank you for using SpareDeck!</p>
+
+    <p>
+      Your credit card has been charged $<%= @stripe_charge.amount_in_dollars %> for the following order.
+    <% if @stripe_charge.invoice_memo.present? %>
+        <br><%= @stripe_charge.invoice_memo %>
+    <% end %>
+    </p>
+
+    <p>You will receive another e-mail notifying you when your order has shipped.</p>
+
+    <p>
+      Sincerely,<br>
+      <b>SpareDeck</b>
+    </p>
+
+
+    <%= render partial:'orders_mailer/mailer_order_info', locals:{ order:@order } %>
+
+    <%= render partial:'layouts/email_order_summary', locals:{order:@order, order_cards_hash:@order_cards_hash} %>
+
+  <td>
+<tr>

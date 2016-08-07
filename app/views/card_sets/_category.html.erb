@@ -1,0 +1,21 @@
+<% if card_sets.size > 0 %>
+    <div class="set_title"><%= name%></div>
+    <div class="col-md-12 divide">
+      <% card_sets.each_slice(3) do |slice| %>
+          <div class="row">
+            <% slice.each do |card_set| %>
+                <div class="col-md-4">
+                  <div class="card-set-container">
+                    <div class="card-set-logo">
+                      <%= link_to image_tag(set_logo card_set.code, 'c', 64), card_set_path(card_set.id) %>
+                    </div>
+                    <div class="card-set-title">
+                      <%= link_to "#{card_set.name} (#{card_set.release_date.strftime('%Y')})", card_set_path(card_set.id) %>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div><!-- .col-md-12 -->
+<% end %>

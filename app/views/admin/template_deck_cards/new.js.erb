@@ -1,0 +1,45 @@
+$('#new-template-card-link').hide().after('<%= j render("form") %>');
+
+$('.template-deck-card-cancel a.btn').click(function(e) {
+  $('#template-deck-card-form-row').remove();
+  $('#new-template-card-link').show();
+  e.preventDefault();
+});
+
+$('#card_name').autocomplete({
+  source: $('#card_name').data('autocomplete-source'),
+  dataType: "json",
+  minLength: 2,
+  focus: function(event, ui) {
+    event.preventDefault();
+    $('#card_name').val(ui.item.label);
+    $('#template_deck_card_card_id').val(ui.item.value);
+  },
+  select: function(event, ui) {
+    event.preventDefault();
+    $('#card_name').val(ui.item.label);
+    $('#template_deck_card_card_id').val(ui.item.value);
+  },
+  _renderItem: function( ul, item ) {
+    return $( "<li>" )
+      .attr( "data-value", item.value )
+      .append("<img src='" + item.card_image_url + "' />")
+      .appendTo( ul );
+  }
+});
+
+  $.ui.autocomplete.prototype._renderItem = function(ul, item) {
+    return $("<li></li>")
+      .data("item.autocomplete", item)
+      .append(
+        '<a href="' + item.search_cards_url + '"><div class="ui-card-price pull-right badge badge-success">' + item.card_price + '</div>'
+        +  '<img src="' + item.card_image_url + '" class="pull-left ui-card-image" />'
+        +  '<div class="ui-card-title">' + item.label + '</div>'
+        +  '<div class="ui-card-type">' + item.card_color_and_type + ' | ' + item.card_rarity + '</div>'
+        +  '<div class="ui-card-description">' + item.card_text + '</div>'
+        + '<div class="clear"></div></a>'
+      )
+      .appendTo( ul );
+  };
+
+

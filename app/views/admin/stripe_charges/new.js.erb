@@ -1,0 +1,41 @@
+<% if params[:charge_for_order] %>
+
+$('#new-order-charge-link').addClass('active').attr('disabled', true);
+$("#order-charge-form-target").html("<div id='charge-for-order-well' class='well'><%= escape_javascript(render 'admin/stripe_charges/form') %></div>");
+
+
+<% else %>
+
+$('#new-stripe-charge-link').hide();
+$("#charge-card-form-target").html("<%= escape_javascript(render 'admin/stripe_charges/form') %>");
+
+<% end %>
+
+$('form#new_stripe_charge a.cancel-btn').click(function(e) {
+  $('#new-stripe-charge-link').show();
+  $('#stripe-charge-form-row').remove();
+  e.preventDefault();
+});
+
+$('form#new_stripe_charge input[type="submit"]').click(function() {
+  $('form#new_stripe_charge input[type="submit"]').attr('disabled', true);
+  $('form#new_stripe_charge a.cancel-btn').attr('disabled', true);
+  $('form#new_stripe_charge').submit();
+});
+
+
+var select_val = $('select#stripe_charge_charge_type').val();
+if(select_val == 'order_fees'){
+  $('#order_paid-div').removeClass('hide');
+}
+
+$('select#stripe_charge_charge_type').on("change", function(){
+  var select_val = $(this).val();
+  if(select_val == 'order_fees'){
+    $('#order_paid-div').removeClass('hide');
+  }
+  else{
+    $('#order_paid-div').addClass('hide');
+    $('#order_paid-div input[type="checkbox"]').removeAttr('checked');
+  }
+});

@@ -1,0 +1,41 @@
+<style type="text/css" media="screen">
+
+.template-deck-title {
+  margin-bottom: 30px;
+}
+.template-deck-row {
+  margin-bottom: 25px;
+}
+</style>
+
+
+<% @template_decks.each do |template_deck| %>
+<% cards_hash = parse_reference_deck_by_type(template_deck.template_deck_cards.deck)
+ %>
+ <% cards_hash << ([4, template_deck.template_deck_cards.sideboard])  %>
+ <a name="deck-<%= template_deck.id %>"></a>
+<h3 class="template-deck-title"><%= template_deck.name %></h3>
+<div class="row divide">
+  <div class="col-md-9">
+    <% cards_hash.each_slice(2) do |slice| %>
+    <div class="row template-deck-row">
+    <% slice.each do |card_type_index, template_deck_cards| %>
+    <div class="col-md-6">
+    <p><b><%= card_type_index == 4 ? card_type_array[card_type_index] :  card_type_array[card_type_index].pluralize %></b></p>
+      <% template_deck_cards.each do |template_deck_card| %>
+      <p><%= template_deck_card.quantity %>x     <%= link_to template_deck_card.card.name, '#', title:('<img src="' + card_image(template_deck_card.card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+</p>
+      <% end #template_deck_cards.each %>
+    </div><!-- .col-md-6 -->
+    <% end #slice.each %>
+    </div><!-- .row -->
+    <% end #cards_hash.each %>
+
+  </div>
+
+
+  <div class="col-md-3">
+    <%= link_to 'Add to cart', rent_template_deck_path(template_deck), class:'btn btn-block btn-outline btn-default' %>
+  </div>
+</div>
+<% end %>

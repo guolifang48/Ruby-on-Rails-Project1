@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  database: sparedeck_dev
+  host: localhost
+  user: ubuntu
+  password: password
+
+test:
+  adapter: postgresql
+  database: sparedeck_test
+  host: localhost
+  user: ubuntu
+  password: password
+
+production:
+  adapter: postgresql
+  database: sparedeck
+  host: localhost

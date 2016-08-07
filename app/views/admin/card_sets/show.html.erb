@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default card-list-table">
+      <div class="panel-heading">
+        <h1>
+          <span class="logo-image">
+            <%= image_tag(set_logo @card_set.code, 'r', 32) %>
+          </span>
+          <%= @card_set.name %>
+        </h1>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th>Rarity</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Inventory</th>
+            <th class="text-center">Reserved</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @cards %>
+        </tbody>
+      </table>
+      <div class="panel-body">
+    		<%= will_paginate @cards, :class => 'simple_pager pull-right', :previous_label => '&laquo; previous', :next_label => 'next &raquo;' %>
+      </div>
+  </div>
+</div>

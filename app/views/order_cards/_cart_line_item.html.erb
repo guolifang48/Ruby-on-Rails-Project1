@@ -1,0 +1,19 @@
+<li id="card-<%= order_card.card.id %>" class="list-group-item order_card">
+  <span class="width-35 align-left longtext">
+    <%= link_to order_card.card.name, '#', title:('<img src="' + card_image(order_card.card) + '" />') , data:{toggle:'tooltip', html:true}, class:'card-image-link' %>
+  </span>
+  <span class="width-15 padding-0-10 longtext mana">
+    <%= mana_cost(order_card.card) %>
+  </span>
+  <span class="width-10 padding-0-10">
+    <%= "$#{order_card.current_price_in_dollars}" %>
+  </span>
+  <span class="width-25 text-center">
+    <%= link_to '<span class="fa fa-chevron-up"></span>'.html_safe, order_card_path(order_card.card, qty:1, origin:'cart'), class:"btn-xs btn btn-outline btn-success icon-only-btn #{'disabled' if (order_card.quantity > 3)}", remote:true  %>
+    <span class="qty">x<%= order_card.quantity %></span>
+    <%= link_to '<span class="fa fa-chevron-down"></span>'.html_safe, order_card_path(order_card.card, qty:-1, origin:'cart'), class:"btn-xs btn btn-outline btn-danger icon-only-btn", remote:true  %>
+  </span>
+  <span class="width-10 padding-0-5">
+    <%= "$#{order_card.card_total_in_dollars}" %>
+  </span>
+</li>

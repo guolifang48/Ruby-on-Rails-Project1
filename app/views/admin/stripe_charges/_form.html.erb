@@ -1,0 +1,51 @@
+<div id="stripe-charge-form-row" class="row">
+  <div class="col-md-12">
+    <hr>
+    <%= form_for([:admin, @order, @stripe_charge], remote:true) do |f| %>
+    <h4><%= params[:charge_for_order].present? ? 'Charge card for order' : 'Create a new charge' %></h4>
+      <div class="form-group">
+        <%= f.label :amount_in_dollars, class:'control-label' %>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :amount_in_dollars, class:"form-control", value:(@order.paid ? '0.00' : @order.order_total_in_dollars.to_s) %>
+        </div>
+      </div>
+
+        <div class="form-group">
+          <%= f.label :admin_memo, class:"control-label" %>
+          <%= f.text_area :admin_memo, rows:4, class:'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :invoice_memo, class:"control-label" %>
+          <%= f.text_area :invoice_memo, rows:4, class:'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :charge_type, class:"control-label" %>
+          <%= f.select :charge_type, options_for_select([['Order fees','order_fees'],['Damaged cards','damaged_cards'],['Late fees','late_fees']]),{}, class:'form-control' %>
+        </div>
+
+
+      <div id="order_paid-div" class="form-group checkbox-form-group hide">
+        <label for="order_paid">
+          Is the order paid with this charge?
+          <%= check_box_tag "order_paid", true, false, id: 'order_paid' %>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2">
+            <%= f.submit 'Charge card', class:'btn btn-success btn-block btn-outline' %>
+          </div>
+          <div class="col-md-4">
+            <%= link_to 'Cancel', '#', class:'btn cancel-btn btn-default btn-block btn-outline' %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+

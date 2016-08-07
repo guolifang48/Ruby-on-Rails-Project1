@@ -1,0 +1,3 @@
+<li id="shopping-cart-nav-li" class="shopping-cart-nav <%= 'active' if active %>">
+    <%= link_to "<span class='fa fa-shopping-cart'></span>#{@cart.present? ? @cart.total_cards : 0} cards".html_safe, cart_path %>
+</li>

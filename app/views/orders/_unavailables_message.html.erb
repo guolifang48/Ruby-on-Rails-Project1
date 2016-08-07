@@ -1,0 +1,18 @@
+<% if cart.has_unavailables? %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <h4>Some of your cards are unavailable</h4>
+      <p>The following cards are unavailable for <%= format_date cart.date_needed %> - <%= format_date cart.date_due %></p>
+      <ul id="unavailable-cards">
+      <% cart.order_cards.includes(:card).where(available: false).each do |order_card| %>
+        <li>
+          <%= order_card.card.name %><br>
+          <p>Sorry for the inconvenience, please remove this card from your cart to continue</p>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<% end %>

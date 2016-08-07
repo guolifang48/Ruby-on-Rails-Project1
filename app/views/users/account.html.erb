@@ -1,0 +1,115 @@
+<h1>Your Account</h1>
+
+<div class="row account-row">
+  <div class="col-md-12">
+
+    <% unless @orders.blank? %>
+    <div class="row account-row">
+      <div class="col-md-12">
+        <div class="headline">
+          <h2>Order History</h2>
+        </div>
+        <%# order#, status, date placed, expected arrival date, total dollar amount %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Order No.</th>
+              <th>Status</th>
+              <th>Date Placed</th>
+              <th>Expected Arrival</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @orders.each do |order| %>
+
+            <tr>
+              <td><%= link_to "##{order.order_no}", order %></td>
+              <td><%= order.status %></td>
+              <td><%= format_date order.authorized %></td>
+              <td><%= format_date order.date_needed %></td>
+              <td class="text-success">
+                $<%= order.order_total_in_dollars %>
+              </td>
+              <td>
+                <% unless order.shipped.present? %>
+                <% if order.was_canceled? %>
+                <span class="text-danger">Canceled</span>
+                <% else %>
+                <%= link_to "cancel order", cancel_order_path(order), data:{ confirm: 'Are you sure you want to cancel this order?' }, class:'btn btn-sm btn-danger' %>
+                <% end %>
+                <% end %>
+              </td>
+            </tr>
+
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="headline">
+      <h2>Update Account Info</h2>
+    </div>
+
+    <%= form_for(current_user, html:{class:'form'}) do |f| %>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <%= f.label :first_name, class:'control-label' %>
+          <%= f.text_field :first_name, class:'form-control' %>
+        </div>
+        <div class="col-sm-6">
+          <%= f.label :last_name, class:'control-label' %>
+          <%= f.text_field :last_name, class:'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <%= f.label :email, class:'control-label' %>
+          <%= f.text_field :email, class:'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <%= f.label :password, class:'control-label' %>
+          <%= f.password_field :password, class:'form-control', data:{required:true} %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <%= f.submit "Update account", class:'btn btn-default btn-sm' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row account-row">
+  <div class="col-md-12">
+    <div class="headline">
+      <h2>Update Password</h2>
+    </div>
+
+    <p>To update your password click below to be sent a reset password link.</p>
+    <p><%= link_to "reset password", password_resets_path(email:current_user.email), method: :post, class:'btn btn-default btn-sm' %></p>
+
+  </div>
+</div>
+
+<div class="row account-row">
+  <div class="col-md-12">
+    <div class="headline">
+      <h2>Delete Account</h2>
+    </div>
+
+    <p>To delete your account and associated data, click the button below.</p>
+    <p>
+      <%= link_to 'delete account', current_user, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class:'btn btn-danger btn-sm btn-outline' %>
+    </p>
+  </div>
+</div>

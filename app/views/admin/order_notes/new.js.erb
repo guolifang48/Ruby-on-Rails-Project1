@@ -1,0 +1,8 @@
+$('#new-order-note-link').hide();
+$("#order-note-form-target").html("<%= escape_javascript(render 'admin/order_notes/form') %>");
+
+$('form#new_order_note a.cancel-btn').click(function(e) {
+  $('#new-order-note-link').show();
+  $('#order-note-form-row').remove();
+  e.preventDefault();
+});

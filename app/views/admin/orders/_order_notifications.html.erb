@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <% if order.user_return_confirmation.present? %>
+    <div class="alert alert-info">
+      <p><span class="fa fa-clock-o"></span> <%= format_date order.due_back_confirm %> | user has confirmed deck return</p>
+    </div>
+
+    <% elsif order.due_back_confirm.present? %>
+    <div class="alert alert-info">
+      <p><span class="fa fa-clock-o"></span> <%= format_date order.due_back_confirm %> | user has been sent return-confirm link</p>
+    </div>
+
+    <% elsif order.due_back_warning.present? %>
+    <div class="alert alert-info">
+      <p><span class="fa fa-clock-o"></span> <%= format_date order.due_back_warning %> | user has been sent due back soon warning</p>
+    </div>
+    <% end %>
+  </div>
+</div>

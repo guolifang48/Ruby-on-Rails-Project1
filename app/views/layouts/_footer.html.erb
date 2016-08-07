@@ -1,0 +1,23 @@
+<footer>
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar">
+        <ul class="footer-links nav">
+          <li><%= link_to "contact us", contact_path %></li>
+          <li><%= link_to "how does it work?", about_path %></li>
+          <li><%= link_to "faq", faq_path %></li>
+          <% if current_user.present? && !current_user.guest %>
+          <li><%= link_to "sign out".html_safe, signout_url %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+			<div class="copy text-center">
+				© 2014 <a href="#">SpareDeck</a>
+			</div>
+    </div>
+  </div>
+</footer>

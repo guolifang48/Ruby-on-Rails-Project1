@@ -1,0 +1,32 @@
+<div id="modal-form" class="modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          Edit Price of <%= @card.name %>
+        </h4>
+      </div>
+
+      <%= form_for([:admin, @card], html:{class:'form-horizontal'}, remote:true) do |f| %>
+
+      <div class="modal-body">
+        <p class="help-block">
+          Note, all cards on SpareDeck are priced using defaults for the different rarities. With this form, you can specify a unique price for a card. If you want to remove a previously set price, just leave the field blank and submit the form.
+        </p>
+        <div class="form-group">
+          <%= f.label :price_in_dollars, class:"col-sm-3 control-label" %>
+          <div class="col-sm-9 medium-select">
+            <%= f.text_field :price_in_dollars, class:'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <%= f.submit "Save", class:'btn btn-primary' %>
+      </div><!-- /.modal-footer -->
+
+      <% end %>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

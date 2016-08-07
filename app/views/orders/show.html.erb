@@ -1,0 +1,11 @@
+<%= link_to "<span class='fa fa-reply'></span> return to account page".html_safe, account_url, class:'pull-right' %>
+<h1>
+  Order #<%= @order.order_no %>
+</h1>
+<div class="well">
+<h3>Order summary</h3>
+<p>
+  <%= link_to "<span class='fa fa-file-text-o'></span> Printable receipt".html_safe, receipt_order_url(@order, format: "pdf") %>
+</p>
+<%= render partial:'orders/order_summary', locals:{order:@order, order_cards_hash:@order_cards_hash} %>
+</div><!-- .well -->

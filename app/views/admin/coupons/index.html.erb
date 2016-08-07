@@ -1,0 +1,6 @@
+<h1>SpareDeck coupons</h1>
+
+<%= render partial:'admin/coupons/coupon_table', locals:{coupons:@coupons} %>
+<br>
+
+<%= link_to 'New Coupon', new_admin_coupon_path, remote:true, class:'btn btn-wd btn-outline btn-default' %>

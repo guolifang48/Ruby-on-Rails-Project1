@@ -1,0 +1,6 @@
+<div id="user-verification-controls">
+  <p><b>Current user verification status</b></p>
+  <%= link_to 'needs review', admin_user_path(@user, user:{verification:'needs review'}), method: :put, class:"btn btn-outline btn-default #{'active' if @user.verification_status == 'needs review'}", remote:true %>
+  <%= link_to 'verified', admin_user_path(@user, user:{verification:'verified'}), method: :put, class:"btn btn-outline btn-success #{'active' if @user.verification_status == 'verified'}", remote:true %>
+<%= link_to 'failed', admin_user_path(@user, user:{verification:'failed'}), method: :put, class:"btn btn-outline btn-danger #{'active' if @user.verification_status == 'failed'}", remote:true %>
+</div>

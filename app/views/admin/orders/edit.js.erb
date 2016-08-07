@@ -1,0 +1,25 @@
+<% if params[:delayed].present? %>
+
+$("#form-target").html("<%= escape_javascript(render 'admin/orders/delayed_form') %>");
+
+<% else %>
+
+$("#form-target").html("<%= escape_javascript(render 'admin/orders/modal_form') %>");
+
+$('div.datetime-or-nil input[type="checkbox"]').on("change", function(){
+  var order_attribute = $(this).next().attr('id');
+  order_attribute = order_attribute.replace('order_', '');
+  var container_class = order_attribute + '-datetime-container';
+  if($(this).is(':checked')) {
+    var url = '/admin/form-elements/' + container_class + '/' +  order_attribute + '.js';
+    $.get(url);
+  }
+  else {
+    $('.' + container_class).html('');
+  }
+});
+
+
+<% end %>
+
+$('#modal-form').modal('show');

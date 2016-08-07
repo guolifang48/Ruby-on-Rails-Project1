@@ -1,0 +1,1 @@
+$("tr#user-<%= @user.id %>").replaceWith("<%=j render partial: 'admin/users/user', locals:{user:@user} %>");

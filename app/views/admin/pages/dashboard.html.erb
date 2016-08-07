@@ -1,0 +1,57 @@
+<h1>Admin Dashboard</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Card dashboard</h4>
+      </div>
+      <div class="list-group">
+        <%= link_to "Manage Inventory", admin_card_sets_path, class:'list-group-item' %>
+        <%= link_to 'Manage Default Prices', admin_manage_prices_path, class:'list-group-item' %>
+        <%= link_to 'Template Decks', admin_template_decks_path, class:'list-group-item' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Order dashboard</h4>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= link_to 'Open orders', status_admin_orders_url(:open) %>
+          <span class="badge"><%= Order.open.count %></span>
+        </li>
+        <li class="list-group-item">
+          <%= link_to 'Closed orders', status_admin_orders_url(:closed) %>
+          <span class="badge"><%= Order.closed.count %></span>
+        </li>
+        <li class="list-group-item">
+          <%= link_to 'Canceled orders', status_admin_orders_url(:canceled) %>
+          <span class="badge"><%= Order.canceled.count %></span>
+        </li>
+        <li class="list-group-item">
+          <%= link_to 'Coupons', admin_coupons_url %>
+          <span class="badge"><%= Coupon.active.count %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Users dashboard</h4>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= link_to 'Manage Users', admin_users_path %>
+          <span class="badge"><%= User.non_guest.count %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

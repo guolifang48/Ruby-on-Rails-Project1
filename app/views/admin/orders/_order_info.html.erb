@@ -1,0 +1,112 @@
+<div id="order-info" class="row order-section-row">
+  <div class="col-md-12">
+
+    <div class="order-section">
+      <% if order_controls %>
+      <div class="order-controls pull-right">
+        <%= link_to 'edit order', edit_admin_order_path(order), remote:true, class:'btn btn-sm btn-default btn-outline' %>
+
+        <% if order.was_canceled? %>
+          <%= link_to "cancel order", '#', data:{ confirm: 'Are you sure you want to cancel this order?' }, class:'btn btn-sm btn-danger btn-outline disabled', disabled:true %>
+        <% else %>
+          <%= link_to "cancel order", cancel_admin_order_path(order), data:{ confirm: 'Are you sure you want to cancel this order?' }, class:'btn btn-sm btn-danger btn-outline' %>
+        <% end %>
+      </div>
+      <% end %>
+
+      <h3><%= link_to "Order ##{@order.order_no}", admin_order_path(@order) %></h3>
+      <table class="table">
+        <tbody class="no-thead">
+          <tr>
+            <td class="order-table-label">User</td>
+            <% if order.user.present? %>
+            <td><%= "#{order.user.full_name} | #{order.user.email}" %></td>
+            <% else %>
+            <td>
+              <span class="text-danger text-bold">User was deleted</span>
+            </td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td class="order-table-label">Verification</td>
+            <% if order.user.present? %>
+            <td>
+              <% if order.user.primary_verification_quiz.present? %>
+                <%= link_to order.user.verification_status, admin_verification_quiz_path(order.user.primary_verification_quiz) %>
+              <% else %>
+                <%= order.user.verification_status %>
+              <% end %>
+            </td>
+            <% else %>
+            <td>
+              <span class="text-danger text-bold">User was deleted</span>
+            </td>
+            <% end %>
+
+          </tr>
+
+          <tr>
+            <td class="order-table-label">Date placed</td>
+            <td><%= format_date order.authorized, {time:true} %></td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Date needed</td>
+            <td><%= format_date order.date_needed %></td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Days needed</td>
+            <td><%= order.days_needed %></td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Due back</td>
+            <td><%= format_date order.date_due %></td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Shipping method</td>
+            <td><%= order.shipping_method %></td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Billing Info</td>
+            <td>
+              <address>
+                <%= order.billing_ship_to_name %><br>
+                <%= order.billing_phone %><br>
+                <%= order.billing_street_address_first_line %><br>
+                <%= "#{order.billing_street_address_second_line}<br>".html_safe if order.billing_street_address_second_line.present? %>
+                <%= "#{order.billing_city}, #{order.billing_province} #{order.billing_zipcode}" %>
+              </address>
+            </td>
+          </tr>
+          <tr>
+            <td class="order-table-label">Shipping Info</td>
+            <td>
+              <address>
+                <%= order.ship_to_name %><br>
+                <%= order.phone %><br>
+                <%= order.street_address_first_line %><br>
+                <%= "#{order.street_address_second_line}<br>".html_safe if order.street_address_second_line.present? %>
+                <%= "#{order.city}, #{order.province} #{order.zipcode}" %>
+              </address>
+            </td>
+          </tr>
+          <% if order.order_delayed.present? && order.order_delayed > 0 %>
+          <tr>
+            <td class="order-table-label">Order delayed</td>
+            <td><%= order.order_delayed %> days</td>
+          </tr>
+          <% end %>
+          <% if order_controls %>
+          <tr>
+            <td class="order-table-label">Printable receipt</td>
+            <td><%= link_to "<span class='fa fa-file-text-o'></span>".html_safe, receipt_admin_order_url(order, format: "pdf") %></td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

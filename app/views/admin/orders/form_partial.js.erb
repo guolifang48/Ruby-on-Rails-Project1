@@ -1,0 +1,5 @@
+<% if params[:partial] == 'shipped' %>
+$("div.<%= params[:container] %>").html("<%= escape_javascript(render partial:'admin/orders/attr_datetime_select', locals:{attribute:'shipped'}) %>");
+<% elsif params[:partial] == 'returned' %>
+$("div.<%= params[:container] %>").html("<%= escape_javascript(render partial:'admin/orders/attr_datetime_select', locals:{attribute:'returned'}) %>");
+<% end %>

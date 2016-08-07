@@ -1,0 +1,7 @@
+$("li#card-<%= @order_card.card_id %>").replaceWith("<%= escape_javascript(render partial:'cards/card_set_line_item', locals:{card:@order_card.card, order_card:@order_card}) %>");
+
+$('li#shopping-cart-nav-li').replaceWith("<%= escape_javascript(render partial:'layouts/shopping_cart_li', locals:{active:true}) %>");
+
+$("a.card-image-link").tooltip(
+  {'placement': 'right','content':'html'}
+);

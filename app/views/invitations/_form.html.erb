@@ -1,0 +1,16 @@
+<div id="invite-form" class="well">
+  <div class="form-group">
+    <h4><span class="fa fa-send"></span> Give it a try!</h4>
+    <p>Enter your email address below and a registration link will be sent to you. Follow the link to verify you're a human being and complete your signup.</p>
+
+    <%= form_for(@invitation, html:{class:'form-inline'}, remote:true) do |f| %>
+    <div class="input-group col-md-8">
+      <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
+      <%= f.text_field :recipient_email, class:'form-control', placeholder:'Enter email' %>
+      <span class="input-group-btn">
+        <%= f.submit "Send", class:'btn btn-primary' %>
+      </span>
+    </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<ul id="subtotal-rows" class="list-group siteList" data-cart-rental="<%= cart.duration_cost %>" data-cart-shipping="<%= (cart.shipping_method.blank? ? Order::SHIPPING['Priority Mail']['price'] : Order::SHIPPING[cart.shipping_method]['price']) %>">
+  <li class="list-group-item subtotal">
+    <span class="width-35 align-left longtext"></span>
+    <span class="width-10 padding-0-10 longtext"></span>
+    <span class="width-25 padding-0-10"></span>
+    <span class="width-15 align-left">Rental price</span>
+    <span class="width-10 align-left padding-0-10">
+      <span id="rental_period_cost" style="display: none"><%= value_in_dollars cart.duration_cost %></span>
+      $<span id="cart-cards-subtotal"><%= cart.subtotal_sum_in_dollars %></span>
+    </span>
+  </li>
+  <li class="list-group-item subtotal">
+    <span class="width-35 align-left longtext"></span>
+    <span class="width-10 padding-0-10 longtext"></span>
+    <span class="width-25 padding-0-10"></span>
+    <span class="width-15 align-left">Shipping</span>
+    <span class="width-10 align-left padding-0-10">$<span id="shipping_cost"><%= value_in_dollars(cart.shipping_method.blank? ? Order::SHIPPING['Priority Mail']['price'] : Order::SHIPPING[cart.shipping_method]['price']) %></span></span>
+  </li>
+  <li class="list-group-item subtotal">
+    <span class="width-35 align-left longtext"></span>
+    <span class="width-10 padding-0-10 longtext"></span>
+    <span class="width-25 padding-0-10"></span>
+    <span class="width-15 align-left">Rental subtotal</span>
+    <span class="width-10 align-left padding-0-10">
+      $<span id="cart-cart-subtotal"></span>
+    </span>
+  </li>
+</ul>

@@ -1,0 +1,6 @@
+$("tr#card-<%= @card.id %>").replaceWith("<%=j render partial: 'admin/cards/card', locals:{card:@card} %>");
+
+$('#modal-form').modal('hide');
+$('#modal-form').on('hidden.bs.modal', function () {
+    $('#modal-form').remove();
+});

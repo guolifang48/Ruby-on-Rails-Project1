@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+
+      <div class="card-list-table">
+        <div class="card-list-heading">
+          <h1>
+            <%= @template_deck.name %>
+            <%= link_to 'add to cart', '#', class:'btn btn-success marginleft20' %>
+          </h1>
+          <% if @template_deck.description.present? %>
+          <div class="row description-row">
+            <div class="col-md-9">
+              <h3>Description</h3>
+              <%= simple_format @template_deck.description %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <%= render partial:'template_decks/template_deck_table', locals:{ template_deck_cards:@template_deck.template_deck_cards } %>
+    </div>
+
+  </div>
+</div>
+
